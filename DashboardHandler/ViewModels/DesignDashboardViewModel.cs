@@ -236,42 +236,67 @@ namespace DashboardHandler.ViewModels
 
 			if (itemAdded.OriginalSource is SymbolViewModel symbol)
 			{
-				SetNodeTemplateBySymbol(node, symbol);
+				SetNodeTemplateBySymbol(node, symbol.Symbol as string);
+			}
+			else
+			{
+				SetNodeTemplateBySymbol(node, (itemAdded.Info as PasteCommandInfo).SourceId as string);
 			}
 		}
 
 		private void SetNodeTemplateBySymbol(
 			NodeViewModel node,
-			SymbolViewModel symbol)
+			string toolName)
 		{
-			switch(symbol.Symbol)
+
+			node.ID = toolName;
+
+			switch(toolName)
 			{
 				case "Switch":
 					node.ContentTemplate = App.Current.Resources["NodeSwitchTemplate"] as DataTemplate;
+					node.UnitWidth = 100;
+					node.UnitHeight = 40;
 					break;
 				case "ComboBox":
 					node.ContentTemplate = App.Current.Resources["NodeComboBoxTemplate"] as DataTemplate;
+					node.UnitWidth = 100;
+					node.UnitHeight = 40;
 					break;
 				case "TextBox":
 					node.ContentTemplate = App.Current.Resources["NodeTextBoxTemplate"] as DataTemplate;
+					node.UnitWidth = 100;
+					node.UnitHeight = 40;
 					break;
 				case "Led":
 					node.ContentTemplate = App.Current.Resources["NodeLedTemplate"] as DataTemplate;
+					node.UnitWidth = 30;
+					node.UnitHeight = 30;
 					break;
 				case "Gauge":
 					node.ContentTemplate = App.Current.Resources["NodeGaugeTemplate"] as DataTemplate;
+					node.UnitWidth = 30;
+					node.UnitHeight = 30;
 					break;
 				case "Chart":
 					node.ContentTemplate = App.Current.Resources["NodeChartTemplate"] as DataTemplate;
+					node.UnitWidth = 30;
+					node.UnitHeight = 30;
 					break;
 				case "Register":
 					node.ContentTemplate = App.Current.Resources["NodeRegisterTemplate"] as DataTemplate;
+					node.UnitWidth = 100;
+					node.UnitHeight = 40;
 					break;
 				case "MonitorList":
 					node.ContentTemplate = App.Current.Resources["NodeMonitorListTemplate"] as DataTemplate;
+					node.UnitWidth = 300;
+					node.UnitHeight = 40;
 					break;
 				case "CommandsList":
 					node.ContentTemplate = App.Current.Resources["NodeCommandsListTemplate"] as DataTemplate;
+					node.UnitWidth = 300;
+					node.UnitHeight = 40;
 					break;
 			}
 		}
