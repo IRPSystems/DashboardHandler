@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.ObjectModel;
 
-namespace DashboardHandler.ViewModels.Models.ToolsDesign
+namespace DashboardHandler.Models.ToolsDesign
 {
     public class DesignToolComboBox : DesignToolBase
     {

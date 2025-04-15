@@ -10,42 +10,41 @@
              d:DesignHeight="450" Width="350">
 
     <UserControl.Resources>
+        <ResourceDictionary>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DashboardHandler;component/Resources/SymbolsTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <!--<Style TargetType="stencil:Symbol">
-            <Setter Property="Width" Value="100" />
-            <Setter Property="Height" Value="45" />
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="ToolTip" Value="{Binding Symbol}"/>
-        </Style>-->
+            <selectors:SymbolTemplateSelector x:Key="SymbolTemplateSelector" />
 
-        <selectors:SymbolTemplateSelector x:Key="SymbolTemplateSelector" />
+            <Style TargetType="stencil:Symbol">
+                <Setter Property="Width" Value="Auto" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="stencil:Symbol">
 
-        <Style TargetType="stencil:Symbol">
-            <Setter Property="Width" Value="Auto" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="stencil:Symbol">
+                            <Grid MinWidth="200">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                        <Grid MinWidth="200">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <ContentControl Grid.Column="0"
+                                <ContentControl Grid.Column="0"
                                             Content="{Binding}"
                                             ContentTemplateSelector="{StaticResource SymbolTemplateSelector}"
                                             MinWidth="70"/>
 
-                            <TextBlock Grid.Column="2" Text="{Binding Name}" VerticalAlignment="Center"/>
-                        </Grid>
+                                <TextBlock Grid.Column="2" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            </Grid>
 
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
+        </ResourceDictionary>
     </UserControl.Resources>
     
     

@@ -1,0 +1,91 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+
+    <DataTemplate x:Key="NodeSwitchTemplate">
+        <Grid Background="Transparent">
+            <mah:ToggleSwitch IsOn="{Binding IsChecked}"
+                              OffContent="{Binding OffDescription}"
+                              OnContent="{Binding OnDescription}" 
+                              Margin="5"/>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NodeComboBoxTemplate">
+        <Grid Background="Transparent">
+            <ComboBox ItemsSource="{Binding Items}"
+                      SelectedItem="{Binding SelectedItem}" 
+                      Margin="5"/>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NodeTextBoxTemplate">
+        <Grid Background="Transparent">
+            <TextBox Text="{Binding Text}" Margin="5"/>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NodeLedTemplate">
+        <Grid Width="{Binding ParentNode.UnitWidth}"
+              Height="{Binding ParentNode.UnitHeight}">
+            
+            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"/>
+
+
+            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"                      
+                     Margin="3">
+
+                <Ellipse.Resources>
+
+                    <Style TargetType="Ellipse">
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                <Setter Property="Fill" Value="{Binding OnColor}" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                <Setter Property="Fill" Value="{Binding OffColor}" />
+                            </DataTrigger>
+
+                        </Style.Triggers>                        
+                    </Style>
+                    
+                </Ellipse.Resources>
+                
+            </Ellipse>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NodeGaugeTemplate">
+        <iconPacks:PackIconMaterial Kind="Gauge" 
+                                    Width="{Binding ParentNode.UnitWidth}"
+                                    Height="{Binding ParentNode.UnitHeight}"
+                                    Background="Transparent"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NodeChartTemplate">
+        <iconPacks:PackIconMaterial Kind="ChartLine"
+                                Width="{Binding ParentNode.UnitWidth}"
+                                Height="{Binding ParentNode.UnitHeight}"
+                                Background="Transparent"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NodeRegisterTemplate">
+        <StackPanel Orientation="Horizontal">
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

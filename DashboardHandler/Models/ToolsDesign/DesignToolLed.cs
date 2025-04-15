@@ -1,7 +1,7 @@
 ﻿
 using System.Windows.Media;
 
-namespace DashboardHandler.ViewModels.Models.ToolsDesign
+namespace DashboardHandler.Models.ToolsDesign
 {
     public class DesignToolLed : DesignToolBase
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace DashboardHandler.ViewModels.Models.ToolsDesign
+namespace DashboardHandler.Models.ToolsDesign
 {
     public class DesignToolMonitorList : DesignToolBase
     {

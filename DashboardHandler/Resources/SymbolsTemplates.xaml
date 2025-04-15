@@ -97,21 +97,17 @@
     <DataTemplate x:Key="MonitorListTemplate">
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Description..." 
-                       Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
+                       Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
                        VerticalAlignment="Center"
                        Margin="0,0,5,0"/>
 
             <TextBlock Text="[Units...]"
-                       Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
+                       Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
                        VerticalAlignment="Center"
                        Margin="0,0,5,0"/>
 
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
-                    Background="Transparent"
-                    Height="25"
-                    Margin="0,0,5,0">
-                <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
-            </Border>
+            <TextBlock Text="Value..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center"/>
+            
 
         </StackPanel>
     </DataTemplate>
@@ -119,12 +115,12 @@
     <DataTemplate x:Key="CommandsListTemplate">
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Description..." 
-                   Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
+                   Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
                    VerticalAlignment="Center"
                    Margin="0,0,5,0"/>
 
             <TextBlock Text="[Units...]"
-                       Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
+                       Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
                        VerticalAlignment="Center"
                        Margin="0,0,5,0"/>
 
@@ -132,7 +128,7 @@
                     Background="Transparent"
                     Height="25"
                     Margin="0,0,5,0">
-                <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
+                <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
             </Border>
 
             <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
@@ -140,7 +136,7 @@
                     CornerRadius="5"
                     Height="25"
                     Margin="0,0,5,0">
-                <TextBlock Text="Set" Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
+                <TextBlock Text="Set" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
             </Border>
 
             <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
@@ -148,7 +144,7 @@
                     CornerRadius="5"
                     Height="25"
                     Margin="0,0,5,0">
-                <TextBlock Text="Get" Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
+                <TextBlock Text="Get" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
             </Border>
 
 
