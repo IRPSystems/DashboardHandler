@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DashboardHandler.Models.ToolsDesign;
 using Syncfusion.UI.Xaml.Diagram;
+using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
@@ -15,11 +16,10 @@ namespace DashboardHandler.ViewModels
 	{
 		#region Properties
 
-		public SfDiagram Diagram { get; set; }
 		public string Name { get; set; }
 
-		//public NodeCollection Nodes { get; set; }
-		//public SnapSettings SnapSettings { get; set; }
+		public NodeCollection Nodes { get; set; }
+		public SnapSettings SnapSettings { get; set; }
 
 		public Syncfusion.UI.Xaml.Diagram.CommandManager CommandManager { get; set; }
 
@@ -31,12 +31,13 @@ namespace DashboardHandler.ViewModels
 		{
 			Name = name;
 
-			Diagram = new SfDiagram();
-			Diagram.Nodes = new NodeCollection();
+			Nodes = new NodeCollection();
+
+			ItemAddedCommand = new RelayCommand<object>(ItemAdded);
 
 			SetSnapAndGrid();
 
-			AddNodesForDebug();
+			//AddNodesForDebug();
 		}
 
 		#endregion Constructor
@@ -45,7 +46,7 @@ namespace DashboardHandler.ViewModels
 
 		private void SetSnapAndGrid()
 		{
-			Diagram.SnapSettings = new SnapSettings()
+			SnapSettings = new SnapSettings()
 			{
 				SnapConstraints = SnapConstraints.ShowLines,
 				SnapToObject = SnapToObject.All,
@@ -73,7 +74,7 @@ namespace DashboardHandler.ViewModels
 				ContentTemplate = Application.Current.Resources["NodeSwitchTemplate"] as DataTemplate
 			};
 
-			(Diagram.Nodes as NodeCollection).Add(node);
+			Nodes.Add(node);
 
 			///////////////////////////////////////////////////////////
 
@@ -96,7 +97,7 @@ namespace DashboardHandler.ViewModels
 				ContentTemplate = Application.Current.Resources["NodeComboBoxTemplate"] as DataTemplate
 			};
 
-			(Diagram.Nodes as NodeCollection).Add(node);
+			Nodes.Add(node);
 
 			///////////////////////////////////////////////////////////
 
@@ -117,7 +118,7 @@ namespace DashboardHandler.ViewModels
 				ContentTemplate = Application.Current.Resources["NodeTextBoxTemplate"] as DataTemplate
 			};
 
-			(Diagram.Nodes as NodeCollection).Add(node);
+			Nodes.Add(node);
 
 			///////////////////////////////////////////////////////////
 
@@ -145,7 +146,7 @@ namespace DashboardHandler.ViewModels
 
 			designTool.ParentNode = node;
 
-			(Diagram.Nodes as NodeCollection).Add(node);
+			Nodes.Add(node);
 
 			///////////////////////////////////////////////////////////
 
@@ -171,7 +172,7 @@ namespace DashboardHandler.ViewModels
 
 			designTool.ParentNode = node;
 
-			(Diagram.Nodes as NodeCollection).Add(node);
+			Nodes.Add(node);
 
 			///////////////////////////////////////////////////////////
 
@@ -197,7 +198,7 @@ namespace DashboardHandler.ViewModels
 
 			designTool.ParentNode = node;
 
-			(Diagram.Nodes as NodeCollection).Add(node);
+			Nodes.Add(node);
 
 			///////////////////////////////////////////////////////////
 
@@ -222,18 +223,64 @@ namespace DashboardHandler.ViewModels
 
 			designTool.ParentNode = node;
 
-			(Diagram.Nodes as NodeCollection).Add(node);
+			Nodes.Add(node);
 		}
 
-		
+		private void ItemAdded(object item)
+		{
+			if (!(item is ItemAddedEventArgs itemAdded))
+				return;
+
+			if (!(itemAdded.Item is NodeViewModel node))
+				return;
+
+			if (itemAdded.OriginalSource is SymbolViewModel symbol)
+			{
+				SetNodeTemplateBySymbol(node, symbol);
+			}
+		}
+
+		private void SetNodeTemplateBySymbol(
+			NodeViewModel node,
+			SymbolViewModel symbol)
+		{
+			switch(symbol.Symbol)
+			{
+				case "Switch":
+					node.ContentTemplate = App.Current.Resources["NodeSwitchTemplate"] as DataTemplate;
+					break;
+				case "ComboBox":
+					node.ContentTemplate = App.Current.Resources["NodeComboBoxTemplate"] as DataTemplate;
+					break;
+				case "TextBox":
+					node.ContentTemplate = App.Current.Resources["NodeTextBoxTemplate"] as DataTemplate;
+					break;
+				case "Led":
+					node.ContentTemplate = App.Current.Resources["NodeLedTemplate"] as DataTemplate;
+					break;
+				case "Gauge":
+					node.ContentTemplate = App.Current.Resources["NodeGaugeTemplate"] as DataTemplate;
+					break;
+				case "Chart":
+					node.ContentTemplate = App.Current.Resources["NodeChartTemplate"] as DataTemplate;
+					break;
+				case "Register":
+					node.ContentTemplate = App.Current.Resources["NodeRegisterTemplate"] as DataTemplate;
+					break;
+				case "MonitorList":
+					node.ContentTemplate = App.Current.Resources["NodeMonitorListTemplate"] as DataTemplate;
+					break;
+				case "CommandsList":
+					node.ContentTemplate = App.Current.Resources["NodeCommandsListTemplate"] as DataTemplate;
+					break;
+			}
+		}
 
 		#endregion Methods
 
 		#region Commands
 
-		public RelayCommand SaveCommand { get; private set; }
-		public RelayCommand CopyCommand { get; private set; }
-		public RelayCommand DuplicateCommand { get; private set; }
+		public RelayCommand<object> ItemAddedCommand { get; private set; }
 
 		#endregion Commands
 	}

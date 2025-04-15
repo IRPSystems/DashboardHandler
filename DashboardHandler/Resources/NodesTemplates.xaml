@@ -88,4 +88,62 @@
         </StackPanel>
     </DataTemplate>
 
+    <DataTemplate x:Key="NodeMonitorListTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Description..." 
+               Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+               VerticalAlignment="Center"
+               Margin="0,0,5,0"/>
+
+            <TextBlock Text="[Units...]"
+               Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+               VerticalAlignment="Center"
+               Margin="0,0,5,0"/>
+
+            <TextBlock Text="Value..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center"/>
+
+
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NodeCommandsListTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Description..." 
+               Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+               VerticalAlignment="Center"
+               Margin="0,0,5,0"/>
+
+            <TextBlock Text="[Units...]"
+                   Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+                   VerticalAlignment="Center"
+                   Margin="0,0,5,0"/>
+
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                Background="Transparent"
+                Height="25"
+                Margin="0,0,5,0">
+                <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                Background="Transparent"
+                CornerRadius="5"
+                Height="25"
+                Margin="0,0,5,0">
+                <TextBlock Text="Set" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                Background="Transparent"
+                CornerRadius="5"
+                Height="25"
+                Margin="0,0,5,0">
+                <TextBlock Text="Get" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
+            </Border>
+
+
+
+        </StackPanel>
+    </DataTemplate>
+
 </ResourceDictionary>

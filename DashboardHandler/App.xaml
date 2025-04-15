@@ -13,6 +13,8 @@
 
                 <ResourceDictionary Source="pack://application:,,,/DashboardHandler;component/Resources/NodesTemplates.xaml" />
 
+                <ResourceDictionary Source="pack://application:,,,/DashboardHandler;component/Resources/SymbolsTemplates.xaml" />
+
 
             </ResourceDictionary.MergedDictionaries>
 

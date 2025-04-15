@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:stencil="clr-namespace:Syncfusion.UI.Xaml.Diagram.Stencil;assembly=Syncfusion.SfDiagram.WPF"
-             xmlns:selectors="clr-namespace:DashboardHandler.Selectors"
              xmlns:local="clr-namespace:DashboardHandler.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" Width="350">
@@ -16,32 +15,8 @@
                 <ResourceDictionary Source="pack://application:,,,/DashboardHandler;component/Resources/SymbolsTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <selectors:SymbolTemplateSelector x:Key="SymbolTemplateSelector" />
-
             <Style TargetType="stencil:Symbol">
-                <Setter Property="Width" Value="Auto" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="stencil:Symbol">
-
-                            <Grid MinWidth="200">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <ContentControl Grid.Column="0"
-                                            Content="{Binding}"
-                                            ContentTemplateSelector="{StaticResource SymbolTemplateSelector}"
-                                            MinWidth="70"/>
-
-                                <TextBlock Grid.Column="2" Text="{Binding Name}" VerticalAlignment="Center"/>
-                            </Grid>
-
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Width" Value="400" />
             </Style>
 
         </ResourceDictionary>
@@ -49,6 +24,7 @@
     
     
     <Grid>
-        <ContentControl Content="{Binding Stencil}" />
+        <stencil:Stencil SymbolSource="{Binding SymbolSource}" 
+                         ShowSearchTextBox="False"/>
     </Grid>
 </UserControl>

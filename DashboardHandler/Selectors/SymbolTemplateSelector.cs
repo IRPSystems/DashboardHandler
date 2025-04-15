@@ -11,26 +11,29 @@ namespace DashboardHandler.Selectors
 		{
 			FrameworkElement element = container as FrameworkElement;
 
-			if (!(item is SymbolViewModel symbol))
+			//if (!(item is SymbolViewModel symbol))
+			//	return null;
+
+			if (!(item is string name))
 				return null;
 
-			if (symbol.Name == "Switch")
+			if (name =="Switch")
 				return element.FindResource("SwitchTemplate") as DataTemplate;
-			else if (symbol.Name == "ComboBox")
+			else if (name =="ComboBox")
 				return element.FindResource("ComboBoxTemplate") as DataTemplate;
-			else if (symbol.Name == "TextBox")
+			else if (name =="TextBox")
 				return element.FindResource("TextBoxTemplate") as DataTemplate;
-			else if (symbol.Name == "Led")
+			else if (name =="Led")
 				return element.FindResource("LedTemplate") as DataTemplate;
-			else if (symbol.Name == "Gauge")
+			else if (name =="Gauge")
 				return element.FindResource("GaugeTemplate") as DataTemplate;
-			else if (symbol.Name == "Chart")
+			else if (name =="Chart")
 				return element.FindResource("ChartTemplate") as DataTemplate;
-			else if (symbol.Name == "Register")
+			else if (name =="Register")
 				return element.FindResource("RegisterTemplate") as DataTemplate;
-			else if (symbol.Name == "MonitorList")
+			else if (name =="MonitorList")
 				return element.FindResource("MonitorListTemplate") as DataTemplate;
-			else if (symbol.Name == "CommandsList")
+			else if (name =="CommandsList")
 				return element.FindResource("CommandsListTemplate") as DataTemplate;
 
 
