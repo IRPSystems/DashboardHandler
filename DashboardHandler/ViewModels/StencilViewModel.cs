@@ -80,6 +80,20 @@ namespace DashboardHandler.ViewModels
 				Name = "Register",
 			};
 			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+
+			symbol = new SymbolViewModel()
+			{
+				Symbol = "MonitorList",
+				Name = "MonitorList",
+			};
+			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+
+			symbol = new SymbolViewModel()
+			{
+				Symbol = "CommandsList",
+				Name = "CommandsList",
+			};
+			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
 		}
 
 		#endregion Mesthods

@@ -28,6 +28,10 @@ namespace DashboardHandler.Selectors
 				return element.FindResource("ChartTemplate") as DataTemplate;
 			else if (symbol.Name == "Register")
 				return element.FindResource("RegisterTemplate") as DataTemplate;
+			else if (symbol.Name == "MonitorList")
+				return element.FindResource("MonitorListTemplate") as DataTemplate;
+			else if (symbol.Name == "CommandsList")
+				return element.FindResource("CommandsListTemplate") as DataTemplate;
 
 
 			return null;
