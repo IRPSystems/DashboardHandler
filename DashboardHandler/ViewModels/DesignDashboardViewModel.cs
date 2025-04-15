@@ -20,8 +20,23 @@ namespace DashboardHandler.ViewModels
 			Name = name;
 
 			Diagram = new SfDiagram();
+
+			SetSnapAndGrid();
 		}
 
 		#endregion Constructor
+
+		#region Methods
+
+		private void SetSnapAndGrid()
+		{
+			Diagram.SnapSettings = new SnapSettings()
+			{
+				SnapConstraints = SnapConstraints.ShowLines,
+				SnapToObject = SnapToObject.All,
+			};
+		}
+
+		#endregion Methods
 	}
 }
