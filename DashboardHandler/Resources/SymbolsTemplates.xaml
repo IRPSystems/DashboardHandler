@@ -8,13 +8,13 @@
         <Grid>
 
             <Border Height="25" 
-                    BorderBrush="Black"
-                    BorderThickness="2"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="2"
+                    Background="Transparent"
                     CornerRadius="15"
                     Width="70"
                     HorizontalAlignment="Left"/>
             <Ellipse Width="20" Height="20" 
-                     Stroke="Black"
+                     Stroke="{DynamicResource MahApps.Brushes.Gray1}"
                      Fill="{DynamicResource MahApps.Brushes.Accent}" 
                      HorizontalAlignment="Left"/>
 
@@ -22,8 +22,8 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ComboBoxTemplate">
-        <Border BorderBrush="Black"
-                BorderThickness="2"
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="2"
+                Background="Transparent"
                 Height="25">
 
             <Grid>
@@ -36,7 +36,7 @@
                       HorizontalAlignment="Left"
                       Y1="1"
                       Stretch="Fill"
-                      Stroke="Gray"/>
+                      Stroke="{DynamicResource MahApps.Brushes.Gray4}"/>
 
                 <iconPacks:PackIconOcticons Kind="TriangleDown" 
                                             Grid.Column="1"
@@ -50,21 +50,21 @@
     </DataTemplate>
 
     <DataTemplate x:Key="TextBoxTemplate">
-        <Border BorderBrush="Black"
-                BorderThickness="2"
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="2"
+                Background="Transparent"
                 Height="25">
 
-            <TextBlock Text="Text..." Foreground="Gray" VerticalAlignment="Center"/>
+            <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
         </Border>
     </DataTemplate>
     
 
     <DataTemplate x:Key="LedTemplate">
         <Grid Height="30" Width="30">
-            <Ellipse Stroke="Black"/>
+            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"/>
 
 
-            <Ellipse Stroke="Black" 
+            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" 
                      Fill="{DynamicResource MahApps.Brushes.Accent}"
                      Margin="3"/>
         </Grid>
@@ -84,33 +84,33 @@
 
     <DataTemplate x:Key="RegisterTemplate">
         <StackPanel Orientation="Horizontal">
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="Black" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="Black" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="Black" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="MonitorListTemplate">
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Description..." 
-                       Foreground="Gray" 
+                       Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
                        VerticalAlignment="Center"
                        Margin="0,0,5,0"/>
 
             <TextBlock Text="[Units...]"
-                       Foreground="Gray" 
+                       Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
                        VerticalAlignment="Center"
                        Margin="0,0,5,0"/>
 
-            <Border BorderBrush="Black"
-                    BorderThickness="2"
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                    Background="Transparent"
                     Height="25"
                     Margin="0,0,5,0">
-                <TextBlock Text="Text..." Foreground="Gray" VerticalAlignment="Center"/>
+                <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
             </Border>
 
         </StackPanel>
@@ -119,36 +119,36 @@
     <DataTemplate x:Key="CommandsListTemplate">
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Description..." 
-                   Foreground="Gray" 
+                   Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
                    VerticalAlignment="Center"
                    Margin="0,0,5,0"/>
 
             <TextBlock Text="[Units...]"
-                       Foreground="Gray" 
+                       Foreground="{DynamicResource MahApps.Brushes.Gray4}" 
                        VerticalAlignment="Center"
                        Margin="0,0,5,0"/>
 
-            <Border BorderBrush="Black"
-                BorderThickness="1"
-                Height="25"
-                Margin="0,0,5,0">
-                <TextBlock Text="Text..." Foreground="Gray" VerticalAlignment="Center"/>
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                    Background="Transparent"
+                    Height="25"
+                    Margin="0,0,5,0">
+                <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
             </Border>
 
-            <Border BorderBrush="Black"
-                    BorderThickness="1"
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                    Background="Transparent"
                     CornerRadius="5"
                     Height="25"
                     Margin="0,0,5,0">
-                <TextBlock Text="Set" Foreground="Gray" VerticalAlignment="Center"/>
+                <TextBlock Text="Set" Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
             </Border>
 
-            <Border BorderBrush="Black"
-                    BorderThickness="1"
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                    Background="Transparent"
                     CornerRadius="5"
                     Height="25"
                     Margin="0,0,5,0">
-                <TextBlock Text="Get" Foreground="Gray" VerticalAlignment="Center"/>
+                <TextBlock Text="Get" Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
             </Border>
 
 
