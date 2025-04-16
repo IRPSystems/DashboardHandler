@@ -1,6 +1,7 @@
 ﻿
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DeviceCommunicators.Models;
 using DeviceCommunicators.Services;
@@ -20,6 +21,8 @@ namespace DashboardHandler.ViewModels
 		public DisplayViewModel Display { get; set; }
 		public DesignViewModel Design { get; set; }
 
+		public bool IsLightTheme { get; set; }
+
 		#endregion Properties
 
 		#region Fields
@@ -37,8 +40,13 @@ namespace DashboardHandler.ViewModels
 
 			InitDeviceContainer();
 
+			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
+
 			Display = new DisplayViewModel();
 			Design = new DesignViewModel(_devicesContainer);
+
+			IsLightTheme = false;
+			ChangeDarkLight();
 		}
 
 		#endregion Constructor
@@ -84,6 +92,23 @@ namespace DashboardHandler.ViewModels
 			WeakReferenceMessenger.Default.Send(new SETUP_UPDATEDMessage());
 		}
 
+		private void ChangeDarkLight()
+		{
+			IsLightTheme = !IsLightTheme;
+
+			App.ChangeDarkLight(IsLightTheme);
+
+			if(Design != null) 
+				Design.ChangeDarkLight();
+		}
+
 		#endregion Methods
+
+		#region Commands
+
+		public RelayCommand ChangeDarkLightCommand { get; private set; }
+
+
+		#endregion Commands
 	}
 }

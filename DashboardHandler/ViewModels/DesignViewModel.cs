@@ -12,7 +12,6 @@ namespace DashboardHandler.ViewModels
 		#region Properties
 
 		public DesignDocingViewModel DesignDocing { get; set; }
-		public bool IsLightTheme { get; set; }
 
 		#endregion Properties
 
@@ -38,21 +37,14 @@ namespace DashboardHandler.ViewModels
 			DesignDocing = new DesignDocingViewModel(devicesContainer, _propertyGrid);
 
 			_designDashboardList = new List<DesignDashboardViewModel>();
-
-			IsLightTheme = false;
-			ChangeDarkLight();
 		}
 
 		#endregion Constroctor
 
 		#region Methods
 
-		private void ChangeDarkLight()
+		public void ChangeDarkLight()
 		{
-			IsLightTheme = !IsLightTheme;
-
-			App.ChangeDarkLight(IsLightTheme);
-
 			if (DesignDocing != null)
 				DesignDocing.Refresh();
 
