@@ -30,8 +30,8 @@ namespace DashboardHandler.ViewModels
 
 			NewDashboradCommand = new RelayCommand(NewDashborad);
 
-			DesignDocing = new DesignDocingViewModel(devicesContainer, _propertyGrid);
 			_propertyGrid = new PropertyGridViewModel();
+			DesignDocing = new DesignDocingViewModel(devicesContainer, _propertyGrid);
 		}
 
 		#endregion Constroctor

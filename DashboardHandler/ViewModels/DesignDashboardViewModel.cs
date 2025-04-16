@@ -45,6 +45,7 @@ namespace DashboardHandler.ViewModels
 
 			ItemAddedCommand = new RelayCommand<object>(ItemAdded);
 			Diagram_DropCommand = new RelayCommand<DragEventArgs>(Diagram_Drop);
+			ItemSelectedCommand = new RelayCommand<object>(ItemSelected);
 
 			SetSnapAndGrid();
 
@@ -347,6 +348,21 @@ namespace DashboardHandler.ViewModels
 				return;
 
 			toolBase.ParameterData.Add(param);
+			_propertyGrid.SelectedNode = toolBase;
+		}
+
+		private void ItemSelected(object e)
+		{
+			if (!(e is ItemSelectedEventArgs itemSelectedData))
+				return;
+
+			if (!(itemSelectedData.Item is NodeViewModel node))
+				return;
+
+			if (!(node.Content is DesignToolBase toolBase))
+				return;
+
+			_propertyGrid.SelectedNode = toolBase;
 		}
 
 		#endregion Methods
@@ -355,6 +371,7 @@ namespace DashboardHandler.ViewModels
 
 		public RelayCommand<object> ItemAddedCommand { get; private set; }
 		public RelayCommand<DragEventArgs> Diagram_DropCommand { get; private set; }
+		public RelayCommand<object> ItemSelectedCommand { get; private set; }
 
 		#endregion Commands
 	}

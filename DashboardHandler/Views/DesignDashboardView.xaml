@@ -13,7 +13,8 @@
         <!--<ContentControl Content="{Binding Diagram}" />-->
         <syncfusion:SfDiagram Nodes="{Binding Nodes}"
                               SnapSettings="{Binding SnapSettings}"
-                              ItemAddedCommand="{Binding ItemAddedCommand}">
+                              ItemAddedCommand="{Binding ItemAddedCommand}"
+                              ItemSelectedCommand="{Binding ItemSelectedCommand}">
 
             <i:Interaction.Triggers>
 
