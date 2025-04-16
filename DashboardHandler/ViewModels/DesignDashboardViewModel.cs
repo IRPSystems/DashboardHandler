@@ -236,15 +236,15 @@ namespace DashboardHandler.ViewModels
 
 			if (itemAdded.OriginalSource is SymbolViewModel symbol)
 			{
-				SetNodeTemplateBySymbol(node, symbol.Symbol as string);
+				InitNodeBySymbol(node, symbol.Symbol as string);
 			}
 			else
 			{
-				SetNodeTemplateBySymbol(node, (itemAdded.Info as PasteCommandInfo).SourceId as string);
+				InitNodeBySymbol(node, (itemAdded.Info as PasteCommandInfo).SourceId as string);
 			}
 		}
 
-		private void SetNodeTemplateBySymbol(
+		private void InitNodeBySymbol(
 			NodeViewModel node,
 			string toolName)
 		{
@@ -254,46 +254,55 @@ namespace DashboardHandler.ViewModels
 			switch(toolName)
 			{
 				case "Switch":
+					node.Content = new DesignToolSwitch();
 					node.ContentTemplate = App.Current.Resources["NodeSwitchTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "ComboBox":
+					node.Content = new DesignToolComboBox();
 					node.ContentTemplate = App.Current.Resources["NodeComboBoxTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "TextBox":
+					node.Content = new DesignToolTextBox();
 					node.ContentTemplate = App.Current.Resources["NodeTextBoxTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "Led":
+					node.Content = new DesignToolLed();
 					node.ContentTemplate = App.Current.Resources["NodeLedTemplate"] as DataTemplate;
 					node.UnitWidth = 30;
 					node.UnitHeight = 30;
 					break;
 				case "Gauge":
+					node.Content = new DesignToolGauge();
 					node.ContentTemplate = App.Current.Resources["NodeGaugeTemplate"] as DataTemplate;
 					node.UnitWidth = 30;
 					node.UnitHeight = 30;
 					break;
 				case "Chart":
+					node.Content = new DesignToolChart();
 					node.ContentTemplate = App.Current.Resources["NodeChartTemplate"] as DataTemplate;
 					node.UnitWidth = 30;
 					node.UnitHeight = 30;
 					break;
 				case "Register":
+					node.Content = new DesignToolRegister();
 					node.ContentTemplate = App.Current.Resources["NodeRegisterTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "MonitorList":
+					node.Content = new DesignToolMonitorList();
 					node.ContentTemplate = App.Current.Resources["NodeMonitorListTemplate"] as DataTemplate;
 					node.UnitWidth = 300;
 					node.UnitHeight = 40;
 					break;
 				case "CommandsList":
+					node.Content = new DesignToolCommandsList();
 					node.ContentTemplate = App.Current.Resources["NodeCommandsListTemplate"] as DataTemplate;
 					node.UnitWidth = 300;
 					node.UnitHeight = 40;
