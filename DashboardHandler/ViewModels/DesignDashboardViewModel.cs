@@ -353,7 +353,7 @@ namespace DashboardHandler.ViewModels
 			if (node == null || !(node.Content is DesignToolBase toolBase))
 				return;
 
-			toolBase.ParameterData.Add(param);
+			toolBase.ParameterData = param;
 			_propertyGrid.SelectedNode = toolBase;
 		}
 

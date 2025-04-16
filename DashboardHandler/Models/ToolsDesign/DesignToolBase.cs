@@ -10,28 +10,17 @@ namespace DashboardHandler.Models.ToolsDesign
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public ObservableCollection<DeviceParameterData> ParameterData { get; set; }
+        public DeviceParameterData ParameterData { get; set; }
 
         public NodeViewModel ParentNode { get; set; }
 
         public DesignToolBase()
         {
-			ParameterData = new ObservableCollection<DeviceParameterData>();
 		}
 
 		public virtual object Clone()
         {
-			DesignToolBase designToolBase = 
-                MemberwiseClone() as DesignToolBase;
-
-			designToolBase.ParameterData = new ObservableCollection<DeviceParameterData>();
-			foreach (var parameterData in ParameterData)
-            {
-				designToolBase.ParameterData.Add(
-                    parameterData.Clone() as DeviceParameterData);
-			}
-
-            return designToolBase;
+			return MemberwiseClone();
 
 		}
 
