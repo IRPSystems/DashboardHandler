@@ -9,7 +9,6 @@ using Syncfusion.UI.Xaml.Diagram;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace DashboardHandler.ViewModels
@@ -27,11 +26,20 @@ namespace DashboardHandler.ViewModels
 
 		#endregion Properties
 
+		#region Fields
+
+		private PropertyGridViewModel _propertyGrid;
+
+		#endregion Fields
+
 		#region Constructor
 
-		public DesignDashboardViewModel(string name)
+		public DesignDashboardViewModel(
+			string name,
+			PropertyGridViewModel propertyGrid)
 		{
 			Name = name;
+			_propertyGrid = propertyGrid;
 
 			Nodes = new NodeCollection();
 

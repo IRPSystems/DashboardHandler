@@ -31,10 +31,11 @@ namespace DashboardHandler.ViewModels
 		#region Constructor
 
 		public DesignDocingViewModel(
-			DevicesContainer devicesContainer) :
+			DevicesContainer devicesContainer,
+			PropertyGridViewModel propertyGrid) :
 			base("DesignDocking", "DashboardHandler")
 		{
-			CreateWindows(devicesContainer);
+			CreateWindows(devicesContainer, propertyGrid);
 
 			NameToDesignDashboardDict = new ConcurrentDictionary<string,DesignDashboardViewModel>();
 		}
@@ -43,7 +44,9 @@ namespace DashboardHandler.ViewModels
 
 		#region Methods
 
-		private void CreateWindows(DevicesContainer devicesContainer)
+		private void CreateWindows(
+			DevicesContainer devicesContainer,
+			PropertyGridViewModel propertyGrid)
 		{
 			ParametersView parametersView = new ParametersView()
 			{ 
@@ -60,7 +63,7 @@ namespace DashboardHandler.ViewModels
 				out _parametrs);
 
 			PropertyGridView propertiesGridView = new PropertyGridView()
-			{ DataContext = new PropertyGridViewModel() };
+			{ DataContext = propertyGrid };
 			CreateWindow(
 				propertiesGridView,
 				"Properties",

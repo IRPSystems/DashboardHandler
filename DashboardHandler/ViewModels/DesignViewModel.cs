@@ -17,7 +17,7 @@ namespace DashboardHandler.ViewModels
 		#region Fields
 
 		private int _counter;
-
+		private PropertyGridViewModel _propertyGrid;
 
 
 		#endregion Fields
@@ -30,7 +30,8 @@ namespace DashboardHandler.ViewModels
 
 			NewDashboradCommand = new RelayCommand(NewDashborad);
 
-			DesignDocing = new DesignDocingViewModel(devicesContainer);
+			DesignDocing = new DesignDocingViewModel(devicesContainer, _propertyGrid);
+			_propertyGrid = new PropertyGridViewModel();
 		}
 
 		#endregion Constroctor
@@ -40,7 +41,9 @@ namespace DashboardHandler.ViewModels
 		private void NewDashborad()
 		{
 			DesignDocing.AddDashboard(
-				new DesignDashboardViewModel($"Dashboard {_counter++}"));
+				new DesignDashboardViewModel(
+					$"Dashboard {_counter++}",
+					_propertyGrid));
 		}
 
 		#endregion Methods
