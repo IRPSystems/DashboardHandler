@@ -24,6 +24,7 @@ namespace DashboardHandler.ViewModels
 
 		private ContentControl _parametrs;
 		private ContentControl _stencil;
+		private ContentControl _propertyGrid;
 
 		#endregion Fields
 
@@ -57,6 +58,16 @@ namespace DashboardHandler.ViewModels
 				"Parameters",
 				DockSide.Right,
 				out _parametrs);
+
+			PropertyGridView propertiesGridView = new PropertyGridView()
+			{ DataContext = new PropertyGridViewModel() };
+			CreateWindow(
+				propertiesGridView,
+				"Properties",
+				"Properties",
+				DockSide.Bottom,
+				out _propertyGrid);
+			SetTargetName(_propertyGrid, "Parameters", DockState.Dock);
 
 			StencilView stencilView = new StencilView();
 			CreateWindow(
