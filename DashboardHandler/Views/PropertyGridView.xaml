@@ -4,10 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:DashboardHandler.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <syncfusion:PropertyGrid  SelectedObject="{Binding SelectedNode}"/>
+        <syncfusion:PropertyGrid  SelectedObject="{Binding SelectedNode}"
+                                  ViewBackgroundColor="{DynamicResource MahApps.Brushes.Control.Background}"
+                                  Foreground="{DynamicResource MahApps.Brushes.Control.Foreground}">
+
+            <i:Interaction.Triggers>
+
+                <i:EventTrigger EventName="AutoGeneratingPropertyGridItem">
+                    <i:InvokeCommandAction Command="{Binding Path=DataContext.Grid_AutoGeneratingPropertyGridItemCommand, 
+                                 Mode=OneWay, 
+                                 RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
+                   PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </syncfusion:PropertyGrid>
     </Grid>
 </UserControl>
