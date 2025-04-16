@@ -24,5 +24,5 @@ namespace DashboardHandler.Views
 		{
 			InitializeComponent();
 		}
-	}
+    }
 }

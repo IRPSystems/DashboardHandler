@@ -14,7 +14,12 @@ namespace DashboardHandler.Models.ToolsDesign
 
         public NodeViewModel ParentNode { get; set; }
 
-        public virtual object Clone()
+        public DesignToolBase()
+        {
+			ParameterData = new ObservableCollection<DeviceParameterData>();
+		}
+
+		public virtual object Clone()
         {
 			DesignToolBase designToolBase = 
                 MemberwiseClone() as DesignToolBase;

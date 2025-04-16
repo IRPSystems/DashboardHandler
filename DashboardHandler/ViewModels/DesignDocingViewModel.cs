@@ -45,7 +45,12 @@ namespace DashboardHandler.ViewModels
 		private void CreateWindows(DevicesContainer devicesContainer)
 		{
 			ParametersView parametersView = new ParametersView()
-			{ DataContext = new ParametersViewModel(null, devicesContainer, false) };
+			{ 
+				DataContext = new ParametersViewModel(
+					new Entities.Models.DragDropData(), 
+					devicesContainer, 
+					false) 
+			};
 			CreateWindow(
 				parametersView,
 				"Parameters",

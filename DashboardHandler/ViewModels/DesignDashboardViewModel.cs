@@ -2,10 +2,14 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DashboardHandler.Models.ToolsDesign;
+using DeviceCommunicators.Models;
+using DeviceHandler.ViewModel;
+using Services.Services;
 using Syncfusion.UI.Xaml.Diagram;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace DashboardHandler.ViewModels
@@ -32,6 +36,7 @@ namespace DashboardHandler.ViewModels
 			Nodes = new NodeCollection();
 
 			ItemAddedCommand = new RelayCommand<object>(ItemAdded);
+			Diagram_DropCommand = new RelayCommand<DragEventArgs>(Diagram_Drop);
 
 			SetSnapAndGrid();
 
@@ -308,11 +313,40 @@ namespace DashboardHandler.ViewModels
 			}
 		}
 
+
+		private void Diagram_Drop(DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(ParametersViewModel.DragDropFormat) == false)
+				return;
+
+			DeviceParameterData param = null;
+			var dragData = e.Data.GetData(ParametersViewModel.DragDropFormat);
+			if (dragData is DeviceParameterData)
+				param = (DeviceParameterData)dragData;
+			else if (dragData is System.Collections.IList list)
+			{
+				var enumerator = list.GetEnumerator();
+				enumerator.MoveNext();
+				param = (DeviceParameterData)enumerator.Current;
+			}
+
+			if (param == null) 
+				return;
+
+			Node node =
+				FindAncestorService.FindAncestor<Node>((DependencyObject)e.OriginalSource);
+			if (node == null || !(node.Content is DesignToolBase toolBase))
+				return;
+
+			toolBase.ParameterData.Add(param);
+		}
+
 		#endregion Methods
 
 		#region Commands
 
 		public RelayCommand<object> ItemAddedCommand { get; private set; }
+		public RelayCommand<DragEventArgs> Diagram_DropCommand { get; private set; }
 
 		#endregion Commands
 	}
