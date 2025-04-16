@@ -5,9 +5,7 @@ using DashboardHandler.Models.ToolsDesign;
 using Syncfusion.UI.Xaml.Diagram;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace DashboardHandler.ViewModels
@@ -280,14 +278,14 @@ namespace DashboardHandler.ViewModels
 				case "Gauge":
 					node.Content = new DesignToolGauge();
 					node.ContentTemplate = App.Current.Resources["NodeGaugeTemplate"] as DataTemplate;
-					node.UnitWidth = 30;
-					node.UnitHeight = 30;
+					node.UnitWidth = 100;
+					node.UnitHeight = 100;
 					break;
 				case "Chart":
 					node.Content = new DesignToolChart();
 					node.ContentTemplate = App.Current.Resources["NodeChartTemplate"] as DataTemplate;
-					node.UnitWidth = 30;
-					node.UnitHeight = 30;
+					node.UnitWidth = 100;
+					node.UnitHeight = 100;
 					break;
 				case "Register":
 					node.Content = new DesignToolRegister();
@@ -299,13 +297,13 @@ namespace DashboardHandler.ViewModels
 					node.Content = new DesignToolMonitorList();
 					node.ContentTemplate = App.Current.Resources["NodeMonitorListTemplate"] as DataTemplate;
 					node.UnitWidth = 300;
-					node.UnitHeight = 40;
+					node.UnitHeight = 100;
 					break;
 				case "CommandsList":
 					node.Content = new DesignToolCommandsList();
 					node.ContentTemplate = App.Current.Resources["NodeCommandsListTemplate"] as DataTemplate;
 					node.UnitWidth = 300;
-					node.UnitHeight = 40;
+					node.UnitHeight = 100;
 					break;
 			}
 		}
