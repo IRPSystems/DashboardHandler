@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeviceHandler.Models;
 using System.Diagnostics.Metrics;
+using System.Windows;
 
 namespace DashboardHandler.ViewModels
 {
@@ -11,6 +12,7 @@ namespace DashboardHandler.ViewModels
 		#region Properties
 
 		public DesignDocingViewModel DesignDocing { get; set; }
+		public bool IsLightTheme { get; set; }
 
 		#endregion Properties
 
@@ -19,6 +21,7 @@ namespace DashboardHandler.ViewModels
 		private int _counter;
 		private PropertyGridViewModel _propertyGrid;
 
+		private List<DesignDashboardViewModel> _designDashboardList;
 
 		#endregion Fields
 
@@ -28,29 +31,55 @@ namespace DashboardHandler.ViewModels
 		{
 			_counter = 1;
 
+			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
 			NewDashboradCommand = new RelayCommand(NewDashborad);
 
 			_propertyGrid = new PropertyGridViewModel();
 			DesignDocing = new DesignDocingViewModel(devicesContainer, _propertyGrid);
+
+			_designDashboardList = new List<DesignDashboardViewModel>();
+
+			IsLightTheme = false;
+			ChangeDarkLight();
 		}
 
 		#endregion Constroctor
 
 		#region Methods
 
+		private void ChangeDarkLight()
+		{
+			IsLightTheme = !IsLightTheme;
+
+			App.ChangeDarkLight(IsLightTheme);
+
+			if (DesignDocing != null)
+				DesignDocing.Refresh();
+
+			foreach (var dashboard in _designDashboardList)
+			{
+				dashboard.ChangeDarkLight();
+			}
+		}
+
 		private void NewDashborad()
 		{
-			DesignDocing.AddDashboard(
-				new DesignDashboardViewModel(
+			DesignDashboardViewModel vm = new DesignDashboardViewModel(
 					$"Dashboard {_counter++}",
-					_propertyGrid));
+					_propertyGrid);
+
+			DesignDocing.AddDashboard(vm);
+			_designDashboardList.Add(vm);
 		}
 
 		#endregion Methods
 
 		#region Commands
 
+		public RelayCommand ChangeDarkLightCommand { get; private set; }
+
 		public RelayCommand NewDashboradCommand { get; private set; }
+
 
 		#endregion Commands
 	}

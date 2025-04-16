@@ -14,7 +14,8 @@
         <syncfusion:SfDiagram Nodes="{Binding Nodes}"
                               SnapSettings="{Binding SnapSettings}"
                               ItemAddedCommand="{Binding ItemAddedCommand}"
-                              ItemSelectedCommand="{Binding ItemSelectedCommand}">
+                              ItemSelectedCommand="{Binding ItemSelectedCommand}"
+                              PageSettings="{Binding PageSettings}">
 
             <i:Interaction.Triggers>
 

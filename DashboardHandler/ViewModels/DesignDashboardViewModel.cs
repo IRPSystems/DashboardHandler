@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ControlzEx.Theming;
 using DashboardHandler.Models.ToolsDesign;
 using DeviceCommunicators.Models;
 using DeviceHandler.ViewModel;
@@ -24,6 +25,8 @@ namespace DashboardHandler.ViewModels
 
 		public Syncfusion.UI.Xaml.Diagram.CommandManager CommandManager { get; set; }
 
+		public PageSettings PageSettings { get; set; }
+
 		#endregion Properties
 
 		#region Fields
@@ -42,6 +45,7 @@ namespace DashboardHandler.ViewModels
 			_propertyGrid = propertyGrid;
 
 			Nodes = new NodeCollection();
+			PageSettings = new PageSettings();
 
 			ItemAddedCommand = new RelayCommand<object>(ItemAdded);
 			Diagram_DropCommand = new RelayCommand<DragEventArgs>(Diagram_Drop);
@@ -50,6 +54,8 @@ namespace DashboardHandler.ViewModels
 			SetSnapAndGrid();
 
 			//AddNodesForDebug();
+
+			ChangeDarkLight();
 		}
 
 		#endregion Constructor
@@ -363,6 +369,12 @@ namespace DashboardHandler.ViewModels
 				return;
 
 			_propertyGrid.SelectedNode = toolBase;
+		}
+
+		public void ChangeDarkLight()
+		{
+			PageSettings.PageBackground =
+				App.Current.Resources["MahApps.Brushes.Gray10"] as SolidColorBrush;
 		}
 
 		#endregion Methods
