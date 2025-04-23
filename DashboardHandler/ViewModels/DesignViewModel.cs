@@ -54,6 +54,9 @@ namespace DashboardHandler.ViewModels
 			if (DesignDocing != null)
 				DesignDocing.Refresh();
 
+			if(_propertyGrid != null)
+				_propertyGrid.ChangeDarkLight();
+
 			if(_stencil != null)
 				_stencil.ChangeDarkLight();
 

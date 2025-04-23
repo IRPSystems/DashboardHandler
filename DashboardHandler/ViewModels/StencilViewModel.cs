@@ -11,7 +11,12 @@ namespace DashboardHandler.ViewModels
 	{
 		#region Properties
 
-		public Stencil Stencil { get; set; }
+		//public Stencil Stencil { get; set; }
+
+		public SymbolCollection SymbolSource { get; set; }
+
+		public Brush Background { get; set; }
+		public Brush Foreround { get; set; }
 
 		#endregion Properties
 
@@ -19,9 +24,7 @@ namespace DashboardHandler.ViewModels
 
 		public StencilViewModel()
 		{
-			Stencil = new Stencil();
-			Stencil.ShowSearchTextBox = false;
-			Stencil.SymbolSource = new SymbolCollection();
+			SymbolSource = new SymbolCollection();
 
 
 			AddSymbols();
@@ -39,7 +42,7 @@ namespace DashboardHandler.ViewModels
 				Name = "Switch",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 			symbol = new SymbolViewModel()
 			{
@@ -47,7 +50,7 @@ namespace DashboardHandler.ViewModels
 				Name = "ComboBox",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 			symbol = new SymbolViewModel()
 			{
@@ -55,7 +58,7 @@ namespace DashboardHandler.ViewModels
 				Name = "TextBox",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 
 			symbol = new SymbolViewModel()
@@ -64,7 +67,7 @@ namespace DashboardHandler.ViewModels
 				Name = "Led",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 			symbol = new SymbolViewModel()
 			{
@@ -72,7 +75,7 @@ namespace DashboardHandler.ViewModels
 				Name = "Gauge",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 			symbol = new SymbolViewModel()
 			{
@@ -80,7 +83,7 @@ namespace DashboardHandler.ViewModels
 				Name = "Chart",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 			symbol = new SymbolViewModel()
 			{
@@ -88,7 +91,7 @@ namespace DashboardHandler.ViewModels
 				Name = "Register",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 			symbol = new SymbolViewModel()
 			{
@@ -96,7 +99,7 @@ namespace DashboardHandler.ViewModels
 				Name = "MonitorList",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 
 			symbol = new SymbolViewModel()
 			{
@@ -104,13 +107,15 @@ namespace DashboardHandler.ViewModels
 				Name = "CommandsList",
 				SymbolTemplate = App.Current.Resources["SymbolTemplate"] as DataTemplate,
 			};
-			(Stencil.SymbolSource as SymbolCollection).Add(symbol);
+			SymbolSource.Add(symbol);
 		}
 
 		public void ChangeDarkLight()
 		{
-			Stencil.Background =
-				App.Current.Resources["MahApps.Brushes.Gray10"] as SolidColorBrush;
+			Background =
+				App.Current.Resources["MahApps.Brushes.ThemeBackground"] as SolidColorBrush;
+			Foreround =
+				App.Current.Resources["MahApps.Brushes.ThemeForeground"] as SolidColorBrush;
 		}
 
 		#endregion Mesthods

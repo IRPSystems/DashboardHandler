@@ -24,8 +24,8 @@
     
     
     <Grid>
-        <!--<stencil:Stencil SymbolSource="{Binding SymbolSource}" 
-                         ShowSearchTextBox="False"/>-->
-        <ContentControl Content="{Binding Stencil}" />
+        <stencil:Stencil SymbolSource="{Binding SymbolSource}" 
+                         ShowSearchTextBox="False"
+                          />
     </Grid>
 </UserControl>
