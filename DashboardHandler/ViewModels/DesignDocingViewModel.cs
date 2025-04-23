@@ -3,6 +3,7 @@ using DashboardHandler.Views;
 using DeviceHandler.Models;
 using DeviceHandler.ViewModel;
 using DeviceHandler.Views;
+using Syncfusion.UI.Xaml.Diagram.Stencil;
 using Syncfusion.Windows.Tools.Controls;
 using System.Collections.Concurrent;
 using System.Reflection.PortableExecutable;
@@ -31,11 +32,12 @@ namespace DashboardHandler.ViewModels
 		#region Constructor
 
 		public DesignDocingViewModel(
-			DevicesContainer devicesContainer,
-			PropertyGridViewModel propertyGrid) :
+		DevicesContainer devicesContainer,
+			PropertyGridViewModel propertyGrid,
+			StencilViewModel stencil) :
 			base("DesignDocking", "DashboardHandler")
 		{
-			CreateWindows(devicesContainer, propertyGrid);
+			CreateWindows(devicesContainer, propertyGrid, stencil);
 
 			NameToDesignDashboardDict = new ConcurrentDictionary<string,DesignDashboardViewModel>();
 		}
@@ -46,7 +48,8 @@ namespace DashboardHandler.ViewModels
 
 		private void CreateWindows(
 			DevicesContainer devicesContainer,
-			PropertyGridViewModel propertyGrid)
+			PropertyGridViewModel propertyGrid,
+			StencilViewModel stencil)
 		{
 			ParametersView parametersView = new ParametersView()
 			{ 
@@ -72,7 +75,8 @@ namespace DashboardHandler.ViewModels
 				out _propertyGrid);
 			SetTargetName(_propertyGrid, "Parameters", DockState.Dock);
 
-			StencilView stencilView = new StencilView();
+			StencilView stencilView = new StencilView()
+			{ DataContext = stencil };
 			CreateWindow(
 				stencilView,
 				"Stencil",

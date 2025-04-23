@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeviceHandler.Models;
+using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Diagnostics.Metrics;
 using System.Windows;
 
@@ -19,6 +20,7 @@ namespace DashboardHandler.ViewModels
 
 		private int _counter;
 		private PropertyGridViewModel _propertyGrid;
+		private StencilViewModel _stencil;
 
 		private List<DesignDashboardViewModel> _designDashboardList;
 
@@ -34,7 +36,11 @@ namespace DashboardHandler.ViewModels
 			NewDashboradCommand = new RelayCommand(NewDashborad);
 
 			_propertyGrid = new PropertyGridViewModel();
-			DesignDocing = new DesignDocingViewModel(devicesContainer, _propertyGrid);
+			_stencil = new StencilViewModel();
+			DesignDocing = new DesignDocingViewModel(
+				devicesContainer, 
+				_propertyGrid, 
+				_stencil);
 
 			_designDashboardList = new List<DesignDashboardViewModel>();
 		}
@@ -47,6 +53,9 @@ namespace DashboardHandler.ViewModels
 		{
 			if (DesignDocing != null)
 				DesignDocing.Refresh();
+
+			if(_stencil != null)
+				_stencil.ChangeDarkLight();
 
 			foreach (var dashboard in _designDashboardList)
 			{
