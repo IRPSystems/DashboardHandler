@@ -17,7 +17,14 @@
 
             <Style TargetType="stencil:Symbol">
                 <Setter Property="Width" Value="400" />
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}"/>
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}"/>
             </Style>
+
+            <Style TargetType="stencil:SymbolGroup">
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}"/>
+            </Style>
+
 
         </ResourceDictionary>
     </UserControl.Resources>
