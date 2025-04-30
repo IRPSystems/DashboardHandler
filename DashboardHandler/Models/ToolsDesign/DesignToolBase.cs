@@ -14,7 +14,13 @@ namespace DashboardHandler.Models.ToolsDesign
 
         public NodeViewModel ParentNode { get; set; }
 
-        public DesignToolBase()
+        public double OffsetX { get; set; }
+		public double OffsetY { get; set; }
+
+		public double Width { get; set; }
+		public double Height { get; set; }
+
+		public DesignToolBase()
         {
 		}
 

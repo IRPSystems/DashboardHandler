@@ -28,7 +28,9 @@
 
     <DataTemplate x:Key="NodeLedTemplate">
         <Grid Width="{Binding ParentNode.UnitWidth}"
-              Height="{Binding ParentNode.UnitHeight}">
+              Height="{Binding ParentNode.UnitHeight}"
+              Margin="5"
+              Background="Transparent">
             
             <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"/>
 

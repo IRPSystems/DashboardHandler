@@ -11,6 +11,7 @@ using Services.Services;
 using Syncfusion.UI.Xaml.Diagram;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -261,6 +262,24 @@ namespace DashboardHandler.ViewModels
 			File.WriteAllText(DesignDiagram.FilePath, sz);
 		}
 
+		public void Open(string path)
+		{
+			string jsonString = File.ReadAllText(path);
+
+			JsonSerializerSettings settings = new JsonSerializerSettings();
+			settings.Formatting = Formatting.Indented;
+			settings.TypeNameHandling = TypeNameHandling.All;
+			DesignDiagram = JsonConvert.DeserializeObject(jsonString, settings) as DesignDiagramData;
+
+			foreach (DesignToolBase tool in DesignDiagram.ToolList)
+			{
+				string toolName = tool.GetType().Name;
+				toolName = toolName.Replace("DesignTool", string.Empty);
+				
+				InitNodeBySymbol(null, toolName, tool);
+			}
+		}
+
 		private void ItemAdded(object item)
 		{
 			if (!(item is ItemAddedEventArgs itemAdded))
@@ -281,72 +300,174 @@ namespace DashboardHandler.ViewModels
 
 		private void InitNodeBySymbol(
 			NodeViewModel node,
-			string toolName)
+			string toolName,
+			DesignToolBase tool = null)
 		{
+			if(node == null)
+			{
+				node = new NodeViewModel();
+				Nodes.Add(node);
+			}
 
 			node.ID = toolName;
 
-			switch(toolName)
+			SetNewNodeTemplate(node, toolName);
+
+			if (tool == null)
+			{
+				SetNewNodeContentAndSize(node, toolName);
+			}
+
+			MatchNewNodeToTool(node, tool);
+
+			node.PropertyChanged += Node_PropertyChanged;
+
+			if (tool == null)
+				DesignDiagram.ToolList.Add(node.Content as DesignToolBase);
+		}
+
+		private void SetNewNodeTemplate(
+			NodeViewModel node, 
+			string toolName)
+		{
+			switch (toolName)
+			{
+				case "Switch":
+					node.ContentTemplate = App.Current.Resources["NodeSwitchTemplate"] as DataTemplate;
+					break;
+				case "ComboBox":
+					node.ContentTemplate = App.Current.Resources["NodeComboBoxTemplate"] as DataTemplate;
+					break;
+				case "TextBox":
+					node.ContentTemplate = App.Current.Resources["NodeTextBoxTemplate"] as DataTemplate;
+					break;
+				case "Led":
+					node.ContentTemplate = App.Current.Resources["NodeLedTemplate"] as DataTemplate;
+					break;
+				case "Gauge":
+					node.ContentTemplate = App.Current.Resources["NodeGaugeTemplate"] as DataTemplate;
+					break;
+				case "Chart":
+					node.ContentTemplate = App.Current.Resources["NodeChartTemplate"] as DataTemplate;
+					break;
+				case "Register":
+					node.ContentTemplate = App.Current.Resources["NodeRegisterTemplate"] as DataTemplate;
+					break;
+				case "MonitorList":
+					node.ContentTemplate = App.Current.Resources["NodeMonitorListTemplate"] as DataTemplate;
+					break;
+				case "CommandsList":
+					node.ContentTemplate = App.Current.Resources["NodeCommandsListTemplate"] as DataTemplate;
+					break;
+			}
+		}
+
+		private void SetNewNodeContentAndSize(
+			NodeViewModel node,
+			string toolName)
+		{
+			switch (toolName)
 			{
 				case "Switch":
 					node.Content = new DesignToolSwitch();
-					node.ContentTemplate = App.Current.Resources["NodeSwitchTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "ComboBox":
 					node.Content = new DesignToolComboBox();
-					node.ContentTemplate = App.Current.Resources["NodeComboBoxTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "TextBox":
 					node.Content = new DesignToolTextBox();
-					node.ContentTemplate = App.Current.Resources["NodeTextBoxTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "Led":
 					node.Content = new DesignToolLed();
-					node.ContentTemplate = App.Current.Resources["NodeLedTemplate"] as DataTemplate;
-					node.UnitWidth = 30;
-					node.UnitHeight = 30;
+					node.UnitWidth = 40;
+					node.UnitHeight = 40;
 					break;
 				case "Gauge":
 					node.Content = new DesignToolGauge();
-					node.ContentTemplate = App.Current.Resources["NodeGaugeTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 100;
 					break;
 				case "Chart":
 					node.Content = new DesignToolChart();
-					node.ContentTemplate = App.Current.Resources["NodeChartTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 100;
 					break;
 				case "Register":
 					node.Content = new DesignToolRegister();
-					node.ContentTemplate = App.Current.Resources["NodeRegisterTemplate"] as DataTemplate;
 					node.UnitWidth = 100;
 					node.UnitHeight = 40;
 					break;
 				case "MonitorList":
 					node.Content = new DesignToolMonitorList();
-					node.ContentTemplate = App.Current.Resources["NodeMonitorListTemplate"] as DataTemplate;
 					node.UnitWidth = 300;
 					node.UnitHeight = 100;
 					break;
 				case "CommandsList":
 					node.Content = new DesignToolCommandsList();
-					node.ContentTemplate = App.Current.Resources["NodeCommandsListTemplate"] as DataTemplate;
 					node.UnitWidth = 300;
 					node.UnitHeight = 100;
 					break;
 			}
-
-			DesignDiagram.ToolList.Add(node.Content as DesignToolBase);
 		}
 
+		private void MatchNewNodeToTool(
+			NodeViewModel node,
+			DesignToolBase tool)
+		{
+			if (node == null)
+				return;
+
+			if (tool != null)
+			{
+				node.OffsetX = tool.OffsetX;
+				node.OffsetY = tool.OffsetY;
+				node.UnitWidth = tool.Width;
+				node.UnitHeight = tool.Height;
+			}
+
+			else if (node.Content is DesignToolBase toolNew)
+			{
+				toolNew.OffsetX = node.OffsetX;
+				toolNew.OffsetY = node.OffsetY;
+				toolNew.Width = node.UnitWidth;
+				toolNew.Height = node.UnitHeight;
+			}
+		}
+
+		private void Node_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if(!(sender is NodeViewModel node))
+				return;
+
+			if (!(node.Content is DesignToolBase tool))
+				return;
+
+			if (e.PropertyName == "OffsetX")
+			{
+				tool.OffsetX = node.OffsetX;
+			}
+
+			if (e.PropertyName == "OffsetY")
+			{
+				tool.OffsetY = node.OffsetY;
+			}
+
+			if (e.PropertyName == "UnitWidth")
+			{
+				tool.Width = node.UnitWidth;
+			}
+
+			if (e.PropertyName == "UnitHeight")
+			{
+				tool.Height = node.UnitHeight;
+			}
+		}
 
 		private void Diagram_Drop(DragEventArgs e)
 		{
