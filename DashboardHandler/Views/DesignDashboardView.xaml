@@ -15,7 +15,8 @@
                               SnapSettings="{Binding SnapSettings}"
                               ItemAddedCommand="{Binding ItemAddedCommand}"
                               ItemSelectedCommand="{Binding ItemSelectedCommand}"
-                              PageSettings="{Binding PageSettings}">
+                              PageSettings="{Binding PageSettings}"
+                              Background="{DynamicResource MahApps.Brushes.ThemeBackground}">
 
             <i:Interaction.Triggers>
 

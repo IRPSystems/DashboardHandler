@@ -374,7 +374,7 @@ namespace DashboardHandler.ViewModels
 		public void ChangeDarkLight()
 		{
 			PageSettings.PageBackground =
-				App.Current.Resources["MahApps.Brushes.Gray10"] as SolidColorBrush;
+				App.Current.Resources["MahApps.Brushes.ThemeBackground"] as SolidColorBrush;
 		}
 
 		#endregion Methods
