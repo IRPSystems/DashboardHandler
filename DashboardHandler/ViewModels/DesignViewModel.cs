@@ -2,8 +2,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeviceHandler.Models;
+using Microsoft.Win32;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Diagnostics.Metrics;
+using System.IO;
 using System.Windows;
 
 namespace DashboardHandler.ViewModels
@@ -34,6 +36,7 @@ namespace DashboardHandler.ViewModels
 
 			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
 			NewDashboradCommand = new RelayCommand(NewDashborad);
+			SaveDashboradCommand = new RelayCommand(SaveDashborad);
 
 			_propertyGrid = new PropertyGridViewModel();
 			_stencil = new StencilViewModel();
@@ -68,12 +71,32 @@ namespace DashboardHandler.ViewModels
 
 		private void NewDashborad()
 		{
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.Filter = "Dashboard file (*.db)|*.db";
+			bool? result = saveFileDialog.ShowDialog();
+			if (result != true)
+				return;
+
+			string dashboardName = Path.GetFileName(saveFileDialog.FileName);
+			dashboardName = dashboardName.Replace(".db", string.Empty);
+
 			DesignDashboardViewModel vm = new DesignDashboardViewModel(
-					$"Dashboard {_counter++}",
+					dashboardName,
+					saveFileDialog.FileName,
 					_propertyGrid);
 
 			DesignDocing.AddDashboard(vm);
 			_designDashboardList.Add(vm);
+
+			vm.Save();
+		}
+
+		private void SaveDashborad()
+		{
+			foreach(var dashboard in _designDashboardList)
+			{
+				dashboard.Save();
+			}
 		}
 
 		#endregion Methods
@@ -83,6 +106,7 @@ namespace DashboardHandler.ViewModels
 		public RelayCommand ChangeDarkLightCommand { get; private set; }
 
 		public RelayCommand NewDashboradCommand { get; private set; }
+		public RelayCommand SaveDashboradCommand { get; private set; }
 
 
 		#endregion Commands

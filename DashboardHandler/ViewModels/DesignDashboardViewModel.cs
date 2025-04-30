@@ -2,13 +2,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ControlzEx.Theming;
+using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
 using DeviceCommunicators.Models;
 using DeviceHandler.ViewModel;
+using Newtonsoft.Json;
 using Services.Services;
 using Syncfusion.UI.Xaml.Diagram;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -18,7 +21,7 @@ namespace DashboardHandler.ViewModels
 	{
 		#region Properties
 
-		public string Name { get; set; }
+		public DesignDiagramData DesignDiagram { get; set; }
 
 		public NodeCollection Nodes { get; set; }
 		public SnapSettings SnapSettings { get; set; }
@@ -32,6 +35,7 @@ namespace DashboardHandler.ViewModels
 		#region Fields
 
 		private PropertyGridViewModel _propertyGrid;
+		
 
 		#endregion Fields
 
@@ -39,9 +43,13 @@ namespace DashboardHandler.ViewModels
 
 		public DesignDashboardViewModel(
 			string name,
+			string filePath,
 			PropertyGridViewModel propertyGrid)
 		{
-			Name = name;
+			DesignDiagram = new DesignDiagramData();
+			DesignDiagram.Name = name;
+			DesignDiagram.FilePath = filePath;
+
 			_propertyGrid = propertyGrid;
 
 			Nodes = new NodeCollection();
@@ -244,6 +252,15 @@ namespace DashboardHandler.ViewModels
 			Nodes.Add(node);
 		}
 
+		public void Save()
+		{
+			JsonSerializerSettings settings = new JsonSerializerSettings();
+			settings.Formatting = Formatting.Indented;
+			settings.TypeNameHandling = TypeNameHandling.All;
+			var sz = JsonConvert.SerializeObject(DesignDiagram, settings);
+			File.WriteAllText(DesignDiagram.FilePath, sz);
+		}
+
 		private void ItemAdded(object item)
 		{
 			if (!(item is ItemAddedEventArgs itemAdded))
@@ -326,6 +343,8 @@ namespace DashboardHandler.ViewModels
 					node.UnitHeight = 100;
 					break;
 			}
+
+			DesignDiagram.ToolList.Add(node.Content as DesignToolBase);
 		}
 
 

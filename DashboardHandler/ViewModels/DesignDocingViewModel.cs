@@ -3,13 +3,9 @@ using DashboardHandler.Views;
 using DeviceHandler.Models;
 using DeviceHandler.ViewModel;
 using DeviceHandler.Views;
-using Syncfusion.UI.Xaml.Diagram.Stencil;
 using Syncfusion.Windows.Tools.Controls;
 using System.Collections.Concurrent;
-using System.Reflection.PortableExecutable;
-using System.Windows;
 using System.Windows.Controls;
-using System.Xml.Linq;
 
 namespace DashboardHandler.ViewModels
 {
@@ -87,12 +83,12 @@ namespace DashboardHandler.ViewModels
 
 		public bool AddDashboard(DesignDashboardViewModel vm)
 		{
-			if (NameToDesignDashboardDict.ContainsKey(vm.Name))
+			if (NameToDesignDashboardDict.ContainsKey(vm.DesignDiagram.Name))
 			{
 				return false;
 			}
 
-			NameToDesignDashboardDict[vm.Name] = vm;
+			NameToDesignDashboardDict[vm.DesignDiagram.Name] = vm;
 
 			DesignDashboardView dashboardView = new DesignDashboardView()
 			{ DataContext = vm };
@@ -101,7 +97,7 @@ namespace DashboardHandler.ViewModels
 			CreateWindow(
 				dashboardView,
 				string.Empty,
-				vm.Name,
+				vm.DesignDiagram.Name,
 				DockSide.None,
 				out window);
 

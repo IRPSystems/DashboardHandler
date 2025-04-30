@@ -33,7 +33,7 @@
                 ToolTip="New dashborad"
                 Command="{Binding NewDashboradCommand}"
                 VerticalAlignment="Center">
-                <iconPacks:PackIconOcticons Kind="DiffAdded" />
+                <iconPacks:PackIconModern Kind="PageNew" />
             </Button>
 
             <Button Style="{StaticResource ButtonWithIconStyle}"
