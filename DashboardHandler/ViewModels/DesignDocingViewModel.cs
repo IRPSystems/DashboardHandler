@@ -66,6 +66,7 @@ namespace DashboardHandler.ViewModels
 				"Parameters",
 				DockSide.Right,
 				out _parametrs);
+			SetCanClose(_parametrs, false);
 
 			PropertyGridView propertiesGridView = new PropertyGridView()
 			{ DataContext = propertyGrid };
@@ -76,6 +77,7 @@ namespace DashboardHandler.ViewModels
 				DockSide.Bottom,
 				out _propertyGrid);
 			SetTargetName(_propertyGrid, "Parameters", DockState.Dock);
+			SetCanClose(_propertyGrid, false);
 
 			StencilView stencilView = new StencilView()
 			{ DataContext = stencil };
@@ -85,6 +87,7 @@ namespace DashboardHandler.ViewModels
 				"Stencil",
 				DockSide.Left,
 				out _stencil);
+			SetCanClose(_stencil, false);
 		}
 
 		public bool AddDashboard(DesignDashboardViewModel vm)
