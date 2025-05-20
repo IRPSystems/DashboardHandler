@@ -60,6 +60,8 @@ namespace DashboardHandler.ViewModels
 			ItemAddedCommand = new RelayCommand<object>(ItemAdded);
 			Diagram_DropCommand = new RelayCommand<DragEventArgs>(Diagram_Drop);
 			ItemSelectedCommand = new RelayCommand<object>(ItemSelected);
+			SaveDashboradCommand = new RelayCommand(Save);
+			GenerateDashboradCommand = new RelayCommand(GenerateDashborad);
 
 			SetSnapAndGrid();
 
@@ -79,6 +81,11 @@ namespace DashboardHandler.ViewModels
 				SnapConstraints = SnapConstraints.ShowLines,
 				SnapToObject = SnapToObject.All,
 			};
+		}
+
+		private void GenerateDashborad()
+		{
+
 		}
 
 		private void AddNodesForDebug()
@@ -526,6 +533,10 @@ namespace DashboardHandler.ViewModels
 		public RelayCommand<object> ItemAddedCommand { get; private set; }
 		public RelayCommand<DragEventArgs> Diagram_DropCommand { get; private set; }
 		public RelayCommand<object> ItemSelectedCommand { get; private set; }
+
+
+		public RelayCommand SaveDashboradCommand { get; private set; }
+		public RelayCommand GenerateDashboradCommand { get; private set; }
 
 		#endregion Commands
 	}

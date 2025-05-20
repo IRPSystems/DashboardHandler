@@ -31,9 +31,7 @@ namespace DashboardHandler.ViewModels
 		{
 			_counter = 1;
 
-			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
 			NewDashboradCommand = new RelayCommand(NewDashborad);
-			SaveDashboradCommand = new RelayCommand(SaveDashborad);
 			LoadDashboradCommand = new RelayCommand(LoadDashborad);
 
 			_propertyGrid = new PropertyGridViewModel();
@@ -89,14 +87,6 @@ namespace DashboardHandler.ViewModels
 			vm.Save();
 		}
 
-		private void SaveDashborad()
-		{
-			foreach(var dashboard in _designDashboardList)
-			{
-				dashboard.Save();
-			}
-		}
-
 		private void LoadDashborad()
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -123,10 +113,8 @@ namespace DashboardHandler.ViewModels
 
 		#region Commands
 
-		public RelayCommand ChangeDarkLightCommand { get; private set; }
 
 		public RelayCommand NewDashboradCommand { get; private set; }
-		public RelayCommand SaveDashboradCommand { get; private set; }
 		public RelayCommand LoadDashboradCommand { get; private set; }
 
 

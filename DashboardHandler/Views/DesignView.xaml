@@ -45,16 +45,6 @@
                 <iconPacks:PackIconMaterial Kind="FolderOpen" />
             </Button>
 
-            <Button Style="{StaticResource ButtonWithIconStyle}"
-                    Width="25"
-                    Height="25"
-                    Margin="0,0,5,0"
-                    ToolTip="Save dashborad"
-                    Command="{Binding SaveDashboradCommand}"
-                    VerticalAlignment="Center">
-                <iconPacks:Material Kind="ContentSave" />
-            </Button>
-
         </StackPanel>
 
         <Line Grid.Row="1" X1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}" />
