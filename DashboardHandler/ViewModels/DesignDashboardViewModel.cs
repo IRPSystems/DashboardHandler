@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using ControlzEx.Theming;
 using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
+using DashboardHandler.Services;
 using DeviceCommunicators.Models;
 using DeviceHandler.ViewModel;
 using Newtonsoft.Json;
@@ -37,7 +38,8 @@ namespace DashboardHandler.ViewModels
 		#region Fields
 
 		private PropertyGridViewModel _propertyGrid;
-		
+		private GenerateService _generateService;
+
 
 		#endregion Fields
 
@@ -68,6 +70,8 @@ namespace DashboardHandler.ViewModels
 			//AddNodesForDebug();
 
 			ChangeDarkLight();
+
+			_generateService = new GenerateService();
 		}
 
 		#endregion Constructor
@@ -85,7 +89,7 @@ namespace DashboardHandler.ViewModels
 
 		private void GenerateDashborad()
 		{
-
+			_generateService.Generate(DesignDiagram);
 		}
 
 		private void AddNodesForDebug()
