@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 namespace DashboardHandler.ViewModels
 {
-	public class DesignDocingViewModel : DocingBaseViewModel
+	public class DesignDokcingViewModel : DocingBaseViewModel
 	{
 		#region Properties
 
@@ -29,11 +29,11 @@ namespace DashboardHandler.ViewModels
 
 		#region Constructor
 
-		public DesignDocingViewModel(
+		public DesignDokcingViewModel(
 		DevicesContainer devicesContainer,
 			PropertyGridViewModel propertyGrid,
 			StencilViewModel stencil) :
-			base("DesignDocking", "DashboardHandler")
+			base("DesignDokcking", "DashboardHandler")
 		{
 			CreateWindows(devicesContainer, propertyGrid, stencil);
 

@@ -11,7 +11,7 @@ namespace DashboardHandler.ViewModels
 	{
 		#region Properties
 
-		public DesignDocingViewModel DesignDocing { get; set; }
+		public DesignDokcingViewModel DesignDocing { get; set; }
 
 		#endregion Properties
 
@@ -36,7 +36,7 @@ namespace DashboardHandler.ViewModels
 
 			_propertyGrid = new PropertyGridViewModel();
 			_stencil = new StencilViewModel();
-			DesignDocing = new DesignDocingViewModel(
+			DesignDocing = new DesignDokcingViewModel(
 				devicesContainer, 
 				_propertyGrid, 
 				_stencil);
