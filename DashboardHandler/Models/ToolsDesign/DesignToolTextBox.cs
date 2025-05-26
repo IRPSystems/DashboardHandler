@@ -1,9 +1,12 @@
 ﻿
 
+using DeviceCommunicators.Models;
+
 namespace DashboardHandler.Models.ToolsDesign
 {
     public class DesignToolTextBox : DesignToolBase
     {
-        public string Text { get; set; }
+		public DeviceParameterData Parameter { get; set; }
+		public string Text { get; set; }
     }
 }
