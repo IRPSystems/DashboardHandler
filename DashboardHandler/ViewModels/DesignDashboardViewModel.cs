@@ -163,6 +163,7 @@ namespace DashboardHandler.ViewModels
 			}
 
 			node.ID = toolName;
+			node.Pivot = new Point(0, 0);
 
 			SetNewNodeTemplate(node, toolName);
 
