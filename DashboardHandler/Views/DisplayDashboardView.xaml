@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="DashboardHandler.Views.DisplayDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:tools="clr-namespace:DashboardHandler.Models.ToolsDesign"
+			 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+			 xmlns:device_handler_plot="clr-namespace:DeviceHandler.Plots;assembly=DeviceHandler"
+			 xmlns:device_handler_views="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
+             xmlns:local="clr-namespace:DashboardHandler.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DeviceHandler;component/Resources/ShowParametersStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries >
+        </ResourceDictionary >
+
+    </UserControl.Resources>
+    
+    <Grid>
+
+        <ItemsControl ItemsSource="{Binding Path=DesignDiagram.ToolList}">
+            
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding OffsetX}" />
+                    <Setter Property="Canvas.Top" Value="{Binding OffsetY}" />
+                    <Setter Property="Width" Value="{Binding Width}" />
+                    <Setter Property="Height" Value="{Binding Height}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+
+            <ItemsControl.Resources>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolSwitch}">
+                    <mah:ToggleSwitch IsOn="{Binding IsChecked}"
+				                      OffContent="{Binding OffDescription}"
+				                      OnContent="{Binding OnDescription}"/>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolComboBox}">
+                    <ComboBox ItemsSource="{ Binding Items}"
+				              SelectedItem = "{Binding SelectedItem}"/>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolTextBox}">
+                    <TextBox Text="{ Binding Text}" />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolLed}">                    
+                    <Grid Canvas.Top="{Binding OffsetY}" Canvas.Left="{Binding OffsetX}" 
+                          Background="Transparent" >
+	
+                        <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" />
+	
+                        <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" Margin = "3" >
+	
+                                <Ellipse.Resources >
+	
+                                    <Style TargetType = "Ellipse" >	
+                                        <Style.Triggers >
+	
+                                            <DataTrigger Binding = "{Binding IsChecked}" Value = "True" >
+	
+                                                <Setter Property = "Fill" Value = "{Binding OnColor}" />
+	
+                                            </DataTrigger > 
+	
+                                            <DataTrigger Binding = "{Binding IsChecked}" Value = "False" >
+	
+                                                <Setter Property = "Fill" Value = "{Binding OffColor}" />
+	
+                                            </DataTrigger > 
+	
+                                        </Style.Triggers > 
+	
+                                    </Style > 
+	
+                                </Ellipse.Resources > 
+	
+                            </Ellipse > 
+	
+                    </Grid >
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolGauge}">
+                    <device_handler_plot:Speedometer />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolChart}">
+                    <device_handler_plot:LineChartView DataContext="{ Binding Chart}"/>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolRegister}">
+                    <device_handler_plot:RegisterView DataContext="{ Binding Register}" />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolCommandsList}">
+                    <device_handler_views:ParamGroupView DataContext="{ Binding ParamGroup}" />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolMonitorList}">
+                    <ListView ItemsSource="{ Binding ParemetersList}"
+				                 ItemTemplate="{ StaticResource ShowParametersStyle}" />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type tools:DesignToolBase}">
+                    <Border BorderBrush="Black" BorderThickness="1" />
+                </DataTemplate>
+                
+            </ItemsControl.Resources>
+            
+        </ItemsControl>
+    </Grid>
+</UserControl>

@@ -44,7 +44,8 @@
         <Line Grid.Row="1" X1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}"/>
 
         <TabControl Grid.Row="2"
-                    mah:TabControlHelper.Underlined="TabPanel">
+                    mah:TabControlHelper.Underlined="TabPanel"
+                    SelectedIndex="1">
 
             <TabItem Header="Design" >
                 <local:DesignView DataContext="{Binding Design}"/>
