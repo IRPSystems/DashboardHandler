@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using DeviceCommunicators.Models;
+using DeviceHandler.Models;
 using Syncfusion.UI.Xaml.Diagram;
 using System.Collections.ObjectModel;
 
@@ -45,6 +46,7 @@ namespace DashboardHandler.Models.ToolsDesign
 		}
 
 		public abstract void SetParameter(DeviceParameterData parameter);
+		public abstract void Init(DevicesContainer devicesContainer);
 
-    }
+	}
 }

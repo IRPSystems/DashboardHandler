@@ -1,5 +1,6 @@
 ﻿
 using DeviceCommunicators.Models;
+using DeviceHandler.Models;
 using Entities.Models;
 using Syncfusion.UI.Xaml.Diagram;
 using System.Collections.ObjectModel;
@@ -13,6 +14,11 @@ namespace DashboardHandler.Models.ToolsDesign
 		public override void SetParameter(DeviceParameterData parameter)
 		{
 			Parameter = parameter;
+		}
+
+		public override void Init(DevicesContainer devicesContainer)
+		{
+
 		}
 	}
 }

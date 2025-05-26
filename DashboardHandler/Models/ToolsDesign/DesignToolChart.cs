@@ -1,5 +1,6 @@
 ﻿
 using DeviceCommunicators.Models;
+using DeviceHandler.Models;
 using DeviceHandler.Plots;
 using System.Collections.ObjectModel;
 
@@ -18,6 +19,11 @@ namespace DashboardHandler.Models.ToolsDesign
 		public override void SetParameter(DeviceParameterData parameter)
 		{
 			ParametersList.Add(parameter);
+		}
+
+		public override void Init(DevicesContainer devicesContainer)
+		{
+
 		}
 	}
 }

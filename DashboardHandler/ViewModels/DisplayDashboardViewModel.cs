@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
+using DeviceHandler.Models;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Services.Services;
@@ -14,6 +15,8 @@ namespace DashboardHandler.ViewModels
     public class DisplayDashboardViewModel: ObservableObject
     {
 		public DesignDiagramData DesignDiagram { get; set; }
+
+		private DevicesContainer _devicesContainer;
 
 		public DisplayDashboardViewModel()
         {
@@ -31,6 +34,11 @@ namespace DashboardHandler.ViewModels
 				settings.Formatting = Formatting.Indented;
 				settings.TypeNameHandling = TypeNameHandling.All;
 				DesignDiagram = JsonConvert.DeserializeObject(jsonString, settings) as DesignDiagramData;
+
+				foreach (DesignToolBase tool in DesignDiagram.ToolList)
+				{
+					tool.Init(_devicesContainer);
+				}
 			}
 			catch (Exception ex) 
 			{

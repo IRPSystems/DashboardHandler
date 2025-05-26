@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using DashboardHandler.Models.ToolsDesign;
+using DeviceHandler.Models;
 
 namespace DashboardHandler.Models
 {

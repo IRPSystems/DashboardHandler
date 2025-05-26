@@ -165,7 +165,7 @@
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolGauge}">
-                    <device_handler_plot:Speedometer ParamData="{Binding Parameter}"/>
+                    <ContentControl Content="{Binding Gauge}" MouseDoubleClick="ContentControl_MouseDoubleClick"/>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolChart}">
@@ -181,8 +181,8 @@
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolMonitorList}">
-                    <ListView ItemsSource="{ Binding ParemetersList}"
-				                 ItemTemplate="{ StaticResource ShowParametersStyle}" />
+                    <ListView ItemsSource="{ Binding ParametersList}"
+				                 ItemTemplate="{ StaticResource ShowParametersStyle}"/>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolBase}">
