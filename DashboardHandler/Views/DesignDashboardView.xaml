@@ -19,6 +19,14 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+    <UserControl.InputBindings>
+
+        <KeyBinding Command="{Binding SaveDashboradCommand}" 
+                            Gesture="CTRL+S" />
+
+    </UserControl.InputBindings>
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -58,6 +66,7 @@
                               SnapSettings="{Binding SnapSettings}"
                               ItemAddedCommand="{Binding ItemAddedCommand}"
                               ItemSelectedCommand="{Binding ItemSelectedCommand}"
+                              ItemDeletedCommand="{Binding ItemDeletedCommand}"
                               PageSettings="{Binding PageSettings}"
                               Background="{DynamicResource MahApps.Brushes.ThemeBackground}">
 
