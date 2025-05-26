@@ -27,7 +27,22 @@ namespace DashboardHandler.Models.ToolsDesign
 		public virtual object Clone()
         {
 			return MemberwiseClone();
+		}
 
+		public virtual string GetParamsSettingStr(
+			string toolName,
+			string indent)
+		{
+			string str =
+				$"{indent}{toolName} = new {GetType().Name}();\r\n" +
+				$"{indent}{toolName}.Name = \"{Name}\";\r\n" +
+				$"{indent}{toolName}.Description = \"{Description}\";\r\n" +
+				$"{indent}{toolName}.OffsetX = {OffsetX};\r\n" +
+				$"{indent}{toolName}.OffsetY = {OffsetY};\r\n" +
+				$"{indent}{toolName}.Width = {Width};\r\n" +
+				$"{indent}{toolName}.Height = {Height};\r\n";
+
+			return str;
 		}
 
     }

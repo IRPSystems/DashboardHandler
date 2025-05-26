@@ -178,10 +178,9 @@ namespace DashboardHandler.Services
 			ref string xamlText)
 		{
 			xamlText +=
-				"\t\t<Grid Width=\"{ Binding " + toolName + ".ParentNode.UnitWidth}\"\r\n" +
-				"\t\t\tHeight = \"{Binding " + toolName + ".ParentNode.UnitHeight}\"\r\n" +
-				"\t\t\tCanvas.Top=\"{Binding " + toolName + ".OffsetY}\" Canvas.Left=\"{Binding " + toolName + ".OffsetX}\"\r\n" +
-				"\t\t\tBackground=\"Transparent\" >\r\n\r\n" +
+				"\t\t<Grid Canvas.Top=\"{Binding " + toolName + ".OffsetY}\" Canvas.Left=\"{Binding " + toolName + ".OffsetX}\"\r\n" +
+				" \t\t\tWidth=\"{Binding " + toolName + ".Width}\" Height=\"{Binding " + toolName + ".Height}\" \r\n\r\n" +
+			"\t\t\tBackground=\"Transparent\" >\r\n\r\n" +
 				"\t\t\t<Ellipse Stroke=\"{DynamicResource MahApps.Brushes.Gray1}\" />\r\n" +
 				"\t\t\t<Ellipse Stroke=\"{DynamicResource MahApps.Brushes.Gray1}\"\r\n" +
 				"\t\t\t\t\t\tMargin = \"3\" >\r\n" +
