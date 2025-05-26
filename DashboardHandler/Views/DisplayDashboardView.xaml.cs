@@ -24,10 +24,5 @@ namespace DashboardHandler.Views
         {
             InitializeComponent();
         }
-
-		private void ContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-		{
-
-        }
     }
 }

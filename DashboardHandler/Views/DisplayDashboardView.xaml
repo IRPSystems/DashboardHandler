@@ -165,7 +165,10 @@
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolGauge}">
-                    <ContentControl Content="{Binding Gauge}" MouseDoubleClick="ContentControl_MouseDoubleClick"/>
+                    <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray3}"
+                            BorderThickness="1">
+                        <ContentControl Content="{Binding Gauge}" />
+                    </Border>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolChart}">
