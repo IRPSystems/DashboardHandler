@@ -1,4 +1,5 @@
 ﻿
+using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
 using DeviceHandler.Plots;
@@ -23,6 +24,12 @@ namespace DashboardHandler.Models.ToolsDesign
 
 		public override void Init(DevicesContainer devicesContainer)
 		{
+			Chart = new LineChartViewModel();
+
+			foreach (DeviceParameterData parameter in ParametersList)
+			{
+				Chart.AddSeries(parameter as MCU_ParamData);
+			}
 
 		}
 	}

@@ -1,4 +1,5 @@
 ﻿
+using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
 using DeviceHandler.Plots;
@@ -17,7 +18,7 @@ namespace DashboardHandler.Models.ToolsDesign
 
 		public override void Init(DevicesContainer devicesContainer)
 		{
-
+			Register = new RegisterViewModel(Parameter as MCU_ParamData);
 		}
 	}
 }
