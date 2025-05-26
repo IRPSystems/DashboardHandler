@@ -18,16 +18,15 @@ namespace DashboardHandler.ViewModels
 
 		private DevicesContainer _devicesContainer;
 
-		public DisplayDashboardViewModel()
+		public DisplayDashboardViewModel(string path)
         {
-			LoadFile();
+			LoadFile(path);
 		}
 
-        private void LoadFile()
+        public void LoadFile(string path)
         {
 			try
 			{
-				string path = @"C:\Users\smadar\Documents\Dashborads\d1.db";
 				string jsonString = File.ReadAllText(path);
 
 				JsonSerializerSettings settings = new JsonSerializerSettings();

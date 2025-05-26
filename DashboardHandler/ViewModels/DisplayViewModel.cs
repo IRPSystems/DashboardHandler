@@ -1,16 +1,38 @@
 ﻿
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 
 namespace DashboardHandler.ViewModels
 {
 	public class DisplayViewModel: ObservableObject
 	{
-		public DisplayDashboardViewModel DisplayDashboard { get; set; }
+		public DisplayDokcingViewModel DisplayDokcing { get; set; }
 
 		public DisplayViewModel()
 		{
-			DisplayDashboard = new DisplayDashboardViewModel();
+			LoadDashboradCommand = new RelayCommand(LoadDashborad);
+
+			DisplayDokcing = new DisplayDokcingViewModel();
 		}
+
+		private void LoadDashborad()
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Dashboard file (*.db)|*.db";
+			bool? result = openFileDialog.ShowDialog();
+			if (result != true)
+				return;
+
+			DisplayDashboardViewModel vm = 
+				new DisplayDashboardViewModel(openFileDialog.FileName);
+
+
+			DisplayDokcing.AddDashboard(vm);
+
+		}
+
+		public RelayCommand LoadDashboradCommand { get; private set; }
 	}
 }
