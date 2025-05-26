@@ -5,68 +5,164 @@
 
     <DataTemplate x:Key="NodeSwitchTemplate">
         <Grid Background="Transparent">
-            <mah:ToggleSwitch IsOn="{Binding IsChecked}"
-                              OffContent="{Binding OffDescription}"
-                              OnContent="{Binding OnDescription}" 
-                              Margin="5"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="{Binding Parameter.Name}" 
+                       VerticalAlignment="Center"
+                       FontWeight="DemiBold"/>
+
+            <Border Grid.Column="2" 
+                    Height="25" 
+                    BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="2"
+                    Background="Transparent"
+                    CornerRadius="15"
+                    Width="70"
+                    HorizontalAlignment="Left"/>
+            <Ellipse Grid.Column="2" 
+                     Width="20" Height="20" 
+                     Stroke="{DynamicResource MahApps.Brushes.Gray1}"
+                     Fill="{DynamicResource MahApps.Brushes.Accent}" 
+                     HorizontalAlignment="Left"/>
+
+            <TextBlock Grid.Column="4" Text="{Binding OnDescription}" 
+                       VerticalAlignment="Center"/>
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeComboBoxTemplate">
         <Grid Background="Transparent">
-            <ComboBox ItemsSource="{Binding Items}"
-                      SelectedItem="{Binding SelectedItem}" 
-                      Margin="5"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="{Binding Parameter.Name}" 
+                       VerticalAlignment="Center"
+                       FontWeight="DemiBold"/>
+
+            <Border Grid.Column="2" BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="2"
+                    Background="Transparent"
+                    Height="25" Width="100">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+
+                    <Line Grid.Column="1"
+                          HorizontalAlignment="Left"
+                          Y1="1"
+                          Stretch="Fill"
+                          Stroke="{DynamicResource MahApps.Brushes.Gray4}"/>
+
+                    <iconPacks:PackIconOcticons Kind="TriangleDown" 
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Height="10" Width="10"/>
+
+                </Grid>
+
+            </Border>
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeTextBoxTemplate">
         <Grid Background="Transparent">
-            <TextBox Text="{Binding Text}" Margin="5"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" 
+                       Text="{Binding Parameter.Name}" 
+                       VerticalAlignment="Center"
+                       FontWeight="DemiBold"/>
+
+            <Border Grid.Column="2" BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="2"
+                    Background="Transparent"
+                    Height="25" Width="100">
+
+                <TextBlock Text="Value..." Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
+            </Border>
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeLedTemplate">
-        <Grid Width="{Binding ParentNode.UnitWidth}"
-              Height="{Binding ParentNode.UnitHeight}"
-              Margin="5"
-              Background="Transparent">
-            
-            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"/>
+        <Grid Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" 
+                       Text="{Binding Parameter.Name}" 
+                       VerticalAlignment="Center"
+                       FontWeight="DemiBold"/>
+
+            <Grid Grid.Column="2" 
+                  Margin="5"
+                  Background="Transparent">
+
+                <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"/>
 
 
-            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"                      
+                <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"                      
                      Margin="3">
 
-                <Ellipse.Resources>
+                    <Ellipse.Resources>
 
-                    <Style TargetType="Ellipse">
-                        <Style.Triggers>
+                        <Style TargetType="Ellipse">
+                            <Style.Triggers>
 
-                            <DataTrigger Binding="{Binding IsChecked}" Value="True">
-                                <Setter Property="Fill" Value="{Binding OnColor}" />
-                            </DataTrigger>
+                                <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                    <Setter Property="Fill" Value="{Binding OnColor}" />
+                                </DataTrigger>
 
-                            <DataTrigger Binding="{Binding IsChecked}" Value="False">
-                                <Setter Property="Fill" Value="{Binding OffColor}" />
-                            </DataTrigger>
+                                <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                    <Setter Property="Fill" Value="{Binding OffColor}" />
+                                </DataTrigger>
 
-                        </Style.Triggers>                        
-                    </Style>
-                    
-                </Ellipse.Resources>
-                
-            </Ellipse>
+                            </Style.Triggers>
+                        </Style>
+
+                    </Ellipse.Resources>
+
+                </Ellipse>
+            </Grid>
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeGaugeTemplate">
-        <iconPacks:PackIconMaterial Kind="Gauge" 
-                                    Width="{Binding ParentNode.UnitWidth}"
-                                    Height="{Binding ParentNode.UnitHeight}"
-                                    Background="Transparent"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"/>
+        <Grid Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" 
+                       Text="{Binding Parameter.Name}" 
+                       VerticalAlignment="Center"
+                       FontWeight="DemiBold"/>
+
+            <Border Grid.Row="2" >
+                <iconPacks:PackIconMaterial Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}"
+                                            Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}"
+                                            Kind="Gauge"                                         
+                                            Background="Transparent" />
+            </Border>
+        </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeChartTemplate">
@@ -79,73 +175,79 @@
     </DataTemplate>
 
     <DataTemplate x:Key="NodeRegisterTemplate">
-        <StackPanel Orientation="Horizontal">
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-        </StackPanel>
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray3}" BorderThickness="1" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+            </StackPanel>
+        </Border>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeMonitorListTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Description..." 
-               Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
-               VerticalAlignment="Center"
-               Margin="0,0,5,0"/>
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray3}" BorderThickness="1" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Description..." 
+                           Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,5,0"/>
 
-            <TextBlock Text="[Units...]"
-               Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
-               VerticalAlignment="Center"
-               Margin="0,0,5,0"/>
+                <TextBlock Text="[Units...]"
+                           Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,5,0"/>
 
-            <TextBlock Text="Value..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center"/>
+                <TextBlock Text="Value..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center"/>
 
 
-        </StackPanel>
+            </StackPanel>
+        </Border>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeCommandsListTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Description..." 
-               Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
-               VerticalAlignment="Center"
-               Margin="0,0,5,0"/>
+        <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray3}" BorderThickness="1" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Description..." 
+                           Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,5,0"/>
 
-            <TextBlock Text="[Units...]"
-                   Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
-                   VerticalAlignment="Center"
-                   Margin="0,0,5,0"/>
+                <TextBlock Text="[Units...]"
+                           Foreground="{DynamicResource MahApps.Brushes.Gray2}" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,5,0"/>
 
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
-                Background="Transparent"
-                Height="25"
-                Margin="0,0,5,0">
-                <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
-            </Border>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                        Background="Transparent"
+                        Height="25"
+                        Margin="0,0,5,0">
+                    <TextBlock Text="Text..." Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
+                </Border>
 
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
-                Background="Transparent"
-                CornerRadius="5"
-                Height="25"
-                Margin="0,0,5,0">
-                <TextBlock Text="Set" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
-            </Border>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                        Background="Transparent"
+                        CornerRadius="5"
+                        Height="25"
+                        Margin="0,0,5,0">
+                    <TextBlock Text="Set" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
+                </Border>
 
-            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
-                Background="Transparent"
-                CornerRadius="5"
-                Height="25"
-                Margin="0,0,5,0">
-                <TextBlock Text="Get" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
-            </Border>
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                        Background="Transparent"
+                        CornerRadius="5"
+                        Height="25"
+                        Margin="0,0,5,0">
+                    <TextBlock Text="Get" Foreground="{DynamicResource MahApps.Brushes.Gray2}" VerticalAlignment="Center" Margin="5,0"/>
+                </Border>
 
 
 
-        </StackPanel>
+            </StackPanel>
+        </Border>
     </DataTemplate>
 
 </ResourceDictionary>
