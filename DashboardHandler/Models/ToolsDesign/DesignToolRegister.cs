@@ -8,5 +8,10 @@ namespace DashboardHandler.Models.ToolsDesign
     {
 		public DeviceParameterData Parameter { get; set; }
 		public RegisterViewModel Register { get; set; }
+
+		public override void SetParameter(DeviceParameterData parameter)
+		{
+			Parameter = parameter;
+		}
 	}
 }

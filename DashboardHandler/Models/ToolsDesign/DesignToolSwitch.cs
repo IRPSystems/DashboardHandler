@@ -9,5 +9,10 @@ namespace DashboardHandler.Models.ToolsDesign
 		public bool IsChecked { get; set; }
         public string OnDescription { get; set; }
         public string OffDescription { get; set; }
-    }
+
+		public override void SetParameter(DeviceParameterData parameter)
+		{
+			Parameter = parameter;
+		}
+	}
 }

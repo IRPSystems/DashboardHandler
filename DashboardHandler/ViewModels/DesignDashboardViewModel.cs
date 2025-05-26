@@ -14,6 +14,7 @@ using Syncfusion.UI.Xaml.Diagram.Stencil;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -119,10 +120,10 @@ namespace DashboardHandler.ViewModels
 
 			designTool = new DesignToolComboBox()
 			{
-				Items = new ObservableCollection<object> { "Item 1", "Item 2", "Item 3", }
+				//Items = new ObservableCollection<object> { "Item 1", "Item 2", "Item 3", }
 			};
-			(designTool as DesignToolComboBox).SelectedItem =
-				(designTool as DesignToolComboBox).Items[1];
+			//(designTool as DesignToolComboBox).SelectedItem =
+			//	(designTool as DesignToolComboBox).Items[1];
 
 			node = new NodeViewModel()
 			{
@@ -506,7 +507,7 @@ namespace DashboardHandler.ViewModels
 			if (node == null || !(node.Content is DesignToolBase toolBase))
 				return;
 
-			toolBase.ParameterData = param;
+			toolBase.SetParameter(param);
 			_propertyGrid.SelectedNode = toolBase;
 		}
 

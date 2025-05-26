@@ -10,5 +10,10 @@ namespace DashboardHandler.Models.ToolsDesign
 		public bool IsChecked { get; set; }
         public Brush OnColor { get; set; }
         public Brush OffColor { get; set; }
-    }
+
+		public override void SetParameter(DeviceParameterData parameter)
+		{
+			Parameter = parameter;
+		}
+	}
 }

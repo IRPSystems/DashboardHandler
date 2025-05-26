@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace DashboardHandler.Models.ToolsDesign
 {
-    public class DesignToolBase: ObservableObject, ICloneable
+    public abstract class DesignToolBase: ObservableObject, ICloneable
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -43,6 +43,8 @@ namespace DashboardHandler.Models.ToolsDesign
 
 			return str;
 		}
+
+		public abstract void SetParameter(DeviceParameterData parameter);
 
     }
 }
