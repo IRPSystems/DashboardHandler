@@ -7,6 +7,7 @@
 			 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
 			 xmlns:device_handler_plot="clr-namespace:DeviceHandler.Plots;assembly=DeviceHandler"
 			 xmlns:device_handler_views="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
+             xmlns:converters="clr-namespace:DashboardHandler.Converters"
              xmlns:local="clr-namespace:DashboardHandler.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -17,6 +18,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/DeviceHandler;component/Resources/ShowParametersStyle.xaml" />
             </ResourceDictionary.MergedDictionaries >
+
+            <converters:ParamToDropDownListConverte x:Key="ParamToDropDownListConverte" />
+
         </ResourceDictionary >
 
     </UserControl.Resources>
@@ -44,54 +48,120 @@
             <ItemsControl.Resources>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolSwitch}">
-                    <mah:ToggleSwitch IsOn="{Binding IsChecked}"
-				                      OffContent="{Binding OffDescription}"
-				                      OnContent="{Binding OnDescription}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding Parameter.Name}" 
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"/>
+
+                        <mah:ToggleSwitch Grid.Column="2" 
+                                          IsOn="{Binding IsChecked}"
+				                          OffContent="{Binding OffDescription}"
+				                          OnContent="{Binding OnDescription}"/>
+                    </Grid>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolComboBox}">
-                    <ComboBox ItemsSource="{ Binding Items}"
-				              SelectedItem = "{Binding SelectedItem}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding Parameter.Name}" 
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"/>
+
+                        <ComboBox Grid.Column="2" 
+                                  ItemsSource="{Binding Parameter, Converter={StaticResource ParamToDropDownListConverte}}"
+				                  SelectedItem = "{Binding SelectedItem}"
+                                  VerticalAlignment="Center">
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            
+                        </ComboBox>
+                    </Grid>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolTextBox}">
-                    <TextBox Text="{ Binding Text}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding Parameter.Name}" 
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"/>
+
+                        <TextBox Grid.Column="2"
+                                 Text="{ Binding Parameter.Value}" 
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"/>
+                    </Grid>
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type tools:DesignToolLed}">                    
-                    <Grid Canvas.Top="{Binding OffsetY}" Canvas.Left="{Binding OffsetX}" 
-                          Background="Transparent" >
-	
-                        <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" />
-	
-                        <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" Margin = "3" >
-	
+                <DataTemplate DataType="{x:Type tools:DesignToolLed}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding Parameter.Name}" 
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"/>
+
+                        <Grid Grid.Column="2" Canvas.Top="{Binding OffsetY}" Canvas.Left="{Binding OffsetX}" 
+                              Background="Transparent" >
+
+                            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" />
+
+                            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" Margin = "3" >
+
                                 <Ellipse.Resources >
-	
-                                    <Style TargetType = "Ellipse" >	
+
+                                    <Style TargetType = "Ellipse" >
                                         <Style.Triggers >
-	
+
                                             <DataTrigger Binding = "{Binding IsChecked}" Value = "True" >
-	
+
                                                 <Setter Property = "Fill" Value = "{Binding OnColor}" />
-	
-                                            </DataTrigger > 
-	
+
+                                            </DataTrigger >
+
                                             <DataTrigger Binding = "{Binding IsChecked}" Value = "False" >
-	
+
                                                 <Setter Property = "Fill" Value = "{Binding OffColor}" />
-	
-                                            </DataTrigger > 
-	
-                                        </Style.Triggers > 
-	
-                                    </Style > 
-	
-                                </Ellipse.Resources > 
-	
-                            </Ellipse > 
-	
-                    </Grid >
+
+                                            </DataTrigger >
+
+                                        </Style.Triggers >
+
+                                    </Style >
+
+                                </Ellipse.Resources >
+
+                            </Ellipse >
+
+                        </Grid >
+                    </Grid>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolGauge}">
