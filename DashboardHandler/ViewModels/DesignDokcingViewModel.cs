@@ -67,6 +67,7 @@ namespace DashboardHandler.ViewModels
 				DockSide.Right,
 				out _parametrs);
 			SetCanClose(_parametrs, false);
+			SetDesiredWidthInDockedMode(_parametrs, 300);
 
 			PropertyGridView propertiesGridView = new PropertyGridView()
 			{ DataContext = propertyGrid };
@@ -88,6 +89,7 @@ namespace DashboardHandler.ViewModels
 				DockSide.Left,
 				out _stencil);
 			SetCanClose(_stencil, false);
+			SetDesiredWidthInDockedMode(_stencil, 300);
 		}
 
 		public bool AddDashboard(DesignDashboardViewModel vm)

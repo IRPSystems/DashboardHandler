@@ -45,7 +45,7 @@
 
         <TabControl Grid.Row="2"
                     mah:TabControlHelper.Underlined="TabPanel"
-                    SelectedIndex="1">
+                    SelectedIndex="0">
 
             <TabItem Header="Design" >
                 <local:DesignView DataContext="{Binding Design}"/>
