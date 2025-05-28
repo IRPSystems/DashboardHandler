@@ -5,6 +5,7 @@ using DeviceHandler.Models;
 using DeviceHandler.ViewModels;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace DashboardHandler.Models.ToolsDesign
 {
@@ -33,6 +34,25 @@ namespace DashboardHandler.Models.ToolsDesign
 				paramGroup.ParamList.Add(param as MCU_ParamData);
 
 			ParamGroup = new ParamGroupViewModel(devicesContainer, paramGroup, true);
+		}
+
+		public override List<string> GetHideProperties()
+		{
+			List<string> propertyDescriptorsList = base.GetHideProperties();
+
+			List<string> localList = new List<string>();
+			PropertyDescriptorCollection p = TypeDescriptor.GetProperties(this.GetType());
+			foreach (PropertyDescriptor item in p)
+			{
+				if (item.Name == nameof(ParamGroup))
+				{
+					localList.Add(item.Name);
+				}
+			}
+
+			propertyDescriptorsList.AddRange(localList);
+
+			return propertyDescriptorsList;
 		}
 	}
 }

@@ -4,6 +4,7 @@ using DeviceCommunicators.Models;
 using DeviceHandler.Models;
 using DeviceHandler.Plots;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DashboardHandler.Models.ToolsDesign
 {
@@ -22,6 +23,25 @@ namespace DashboardHandler.Models.ToolsDesign
 		public override void Init(DevicesContainer devicesContainer)
 		{
 			Gauge = new Speedometer(Parameter as MCU_ParamData);
+		}
+
+		public override List<string> GetHideProperties()
+		{
+			List<string> propertyDescriptorsList = base.GetHideProperties();
+
+			List<string> localList = new List<string>();
+			PropertyDescriptorCollection p = TypeDescriptor.GetProperties(this.GetType());
+			foreach (PropertyDescriptor item in p)
+			{
+				if (item.Name == nameof(Gauge))
+				{
+					localList.Add(item.Name);
+				}
+			}
+
+			propertyDescriptorsList.AddRange(localList);
+
+			return propertyDescriptorsList;
 		}
 	}
 }
