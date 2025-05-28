@@ -1,7 +1,9 @@
 ﻿
+using DeviceCommunicators.Enums;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using DeviceHandler.Plots;
 using Newtonsoft.Json;
 using System.ComponentModel;
@@ -25,6 +27,12 @@ namespace DashboardHandler.Models.ToolsDesign
 			GetRealParameter(devicesContainer);
 
 			Register = new RegisterViewModel(Parameter as MCU_ParamData);
+
+			DeviceFullData deviceFullData = devicesContainer.DevicesFullDataList[0];
+			deviceFullData.ParametersRepository.Add(
+					Parameter,
+					DeviceHandler.Enums.RepositoryPriorityEnum.Medium,
+					Callback);
 		}
 
 		public override List<string> GetHideProperties()
@@ -51,6 +59,11 @@ namespace DashboardHandler.Models.ToolsDesign
 			Parameter = GetRealParam(
 					Parameter,
 					devicesContainer);
+		}
+
+		private void Callback(DeviceParameterData param, CommunicatorResultEnum result, string resultDescription)
+		{
+
 		}
 	}
 }

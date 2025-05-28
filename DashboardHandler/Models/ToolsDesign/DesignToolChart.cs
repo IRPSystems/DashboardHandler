@@ -1,7 +1,9 @@
 ﻿
+using DeviceCommunicators.Enums;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using DeviceHandler.Plots;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
@@ -32,9 +34,16 @@ namespace DashboardHandler.Models.ToolsDesign
 
 			Chart = new LineChartViewModel();
 
+			DeviceFullData deviceFullData = devicesContainer.DevicesFullDataList[0];
+
 			foreach (DeviceParameterData parameter in ParametersList)
 			{
 				Chart.AddSeries(parameter as MCU_ParamData);
+
+				deviceFullData.ParametersRepository.Add(
+					parameter, 
+					DeviceHandler.Enums.RepositoryPriorityEnum.Medium,
+					Callback);
 			}
 
 		}
@@ -66,6 +75,11 @@ namespace DashboardHandler.Models.ToolsDesign
 					ParametersList[i],
 					devicesContainer);
 			}
+		}
+
+		private void Callback(DeviceParameterData param, CommunicatorResultEnum result, string resultDescription)
+		{
+
 		}
 	}
 }

@@ -1,6 +1,8 @@
 ﻿
+using DeviceCommunicators.Enums;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using System.Windows.Media;
 
 namespace DashboardHandler.Models.ToolsDesign
@@ -20,6 +22,12 @@ namespace DashboardHandler.Models.ToolsDesign
 		public override void Init(DevicesContainer devicesContainer)
 		{
 			GetRealParameter(devicesContainer);
+
+			DeviceFullData deviceFullData = devicesContainer.DevicesFullDataList[0];
+			deviceFullData.ParametersRepository.Add(
+					Parameter,
+					DeviceHandler.Enums.RepositoryPriorityEnum.Medium,
+					Callback);
 		}
 
 		protected override void GetRealParameter(DevicesContainer devicesContainer)
@@ -27,6 +35,11 @@ namespace DashboardHandler.Models.ToolsDesign
 			Parameter = GetRealParam(
 					Parameter,
 					devicesContainer);
+		}
+
+		private void Callback(DeviceParameterData param, CommunicatorResultEnum result, string resultDescription)
+		{
+
 		}
 	}
 }

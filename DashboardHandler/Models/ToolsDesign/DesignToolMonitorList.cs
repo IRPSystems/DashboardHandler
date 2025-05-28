@@ -1,7 +1,10 @@
 ﻿
+using DeviceCommunicators.Enums;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using System.Collections.ObjectModel;
+using System.Reflection.Metadata;
 
 namespace DashboardHandler.Models.ToolsDesign
 {
@@ -22,6 +25,15 @@ namespace DashboardHandler.Models.ToolsDesign
 		public override void Init(DevicesContainer devicesContainer)
 		{
 			GetRealParameter(devicesContainer);
+
+			DeviceFullData deviceFullData = devicesContainer.DevicesFullDataList[0];
+			foreach (DeviceParameterData parameter in ParametersList)
+			{
+				deviceFullData.ParametersRepository.Add(
+						parameter,
+						DeviceHandler.Enums.RepositoryPriorityEnum.Medium,
+						Callback);
+			}
 		}
 
 		protected override void GetRealParameter(DevicesContainer devicesContainer)
@@ -32,6 +44,11 @@ namespace DashboardHandler.Models.ToolsDesign
 					ParametersList[i],
 					devicesContainer);
 			}
+		}
+
+		private void Callback(DeviceParameterData param, CommunicatorResultEnum result, string resultDescription)
+		{
+
 		}
 	}
 }
