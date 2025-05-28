@@ -119,7 +119,7 @@ namespace DashboardHandler.ViewModels
 			{
 				Children.Remove(window);
 
-				if (!(window.Content is DesignDashboardView dashboardV))
+				if (!(window.Content is DisplayDashboardView dashboardV))
 					continue;
 
 				if (!(dashboardV.DataContext is DisplayDashboardViewModel dashboardVM))
