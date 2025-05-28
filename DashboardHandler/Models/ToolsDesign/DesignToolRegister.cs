@@ -22,6 +22,8 @@ namespace DashboardHandler.Models.ToolsDesign
 
 		public override void Init(DevicesContainer devicesContainer)
 		{
+			GetRealParameter(devicesContainer);
+
 			Register = new RegisterViewModel(Parameter as MCU_ParamData);
 		}
 
@@ -42,6 +44,13 @@ namespace DashboardHandler.Models.ToolsDesign
 			propertyDescriptorsList.AddRange(localList);
 
 			return propertyDescriptorsList;
+		}
+
+		protected override void GetRealParameter(DevicesContainer devicesContainer)
+		{
+			Parameter = GetRealParam(
+					Parameter,
+					devicesContainer);
 		}
 	}
 }

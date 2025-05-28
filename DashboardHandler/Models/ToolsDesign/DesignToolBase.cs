@@ -1,7 +1,9 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
+using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using Syncfusion.UI.Xaml.Diagram;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -68,8 +70,43 @@ namespace DashboardHandler.Models.ToolsDesign
 		}
 
 
+		protected DeviceParameterData GetRealParam(
+			DeviceParameterData originalParam,
+			DevicesContainer devicesContainer)
+		{
+			if (originalParam == null)
+				return null;
+
+			if (devicesContainer.TypeToDevicesFullData.ContainsKey(originalParam.DeviceType) == false)
+				return null;
+
+			DeviceFullData deviceFullData =
+				devicesContainer.TypeToDevicesFullData[originalParam.DeviceType];
+			if (deviceFullData == null)
+				return null;
+
+			DeviceParameterData actualParam = null;
+			if (originalParam is MCU_ParamData mcuParam)
+			{
+				actualParam =
+					deviceFullData.Device.ParemetersList.ToList().Find((p) =>
+						((MCU_ParamData)p).Cmd == mcuParam.Cmd);
+			}
+			else
+			{
+				actualParam =
+					deviceFullData.Device.ParemetersList.ToList().Find((p) =>
+						p.Name == originalParam.Name);
+			}
+
+			return actualParam;
+		}
+
+
 		public abstract void SetParameter(DeviceParameterData parameter);
 		public abstract void Init(DevicesContainer devicesContainer);
+
+		protected abstract void GetRealParameter(DevicesContainer devicesContainer);
 
 	}
 }

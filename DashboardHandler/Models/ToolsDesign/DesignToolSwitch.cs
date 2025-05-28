@@ -18,7 +18,14 @@ namespace DashboardHandler.Models.ToolsDesign
 
 		public override void Init(DevicesContainer devicesContainer)
 		{
+			GetRealParameter(devicesContainer);
+		}
 
+		protected override void GetRealParameter(DevicesContainer devicesContainer)
+		{
+			Parameter = GetRealParam(
+					Parameter,
+					devicesContainer);
 		}
 	}
 }

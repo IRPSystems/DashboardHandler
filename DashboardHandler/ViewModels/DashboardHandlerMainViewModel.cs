@@ -44,7 +44,7 @@ namespace DashboardHandler.ViewModels
 
 			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
 
-			Display = new DisplayViewModel();
+			Display = new DisplayViewModel(DevicesContainer);
 			Design = new DesignViewModel(DevicesContainer);
 
 			IsLightTheme = false;

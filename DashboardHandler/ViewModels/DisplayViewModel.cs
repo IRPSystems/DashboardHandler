@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DeviceHandler.Models;
 using Microsoft.Win32;
 
 namespace DashboardHandler.ViewModels
@@ -10,8 +11,12 @@ namespace DashboardHandler.ViewModels
 	{
 		public DisplayDokcingViewModel DisplayDokcing { get; set; }
 
-		public DisplayViewModel()
+		private DevicesContainer _devicesContainer;
+
+		public DisplayViewModel(DevicesContainer devicesContainer)
 		{
+			_devicesContainer = devicesContainer;
+
 			LoadDashboradCommand = new RelayCommand(LoadDashborad);
 
 			DisplayDokcing = new DisplayDokcingViewModel();
@@ -26,7 +31,9 @@ namespace DashboardHandler.ViewModels
 				return;
 
 			DisplayDashboardViewModel vm = 
-				new DisplayDashboardViewModel(openFileDialog.FileName);
+				new DisplayDashboardViewModel(
+					openFileDialog.FileName,
+					_devicesContainer);
 
 
 			DisplayDokcing.AddDashboard(vm);

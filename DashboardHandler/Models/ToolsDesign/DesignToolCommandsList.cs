@@ -28,6 +28,9 @@ namespace DashboardHandler.Models.ToolsDesign
 
 		public override void Init(DevicesContainer devicesContainer)
 		{
+			GetRealParameter(devicesContainer);
+
+
 			ParamGroup paramGroup = new ParamGroup();
 			paramGroup.ParamList = new ObservableCollection<MCU_ParamData>();
 			foreach (var param in ParametersList)
@@ -53,6 +56,16 @@ namespace DashboardHandler.Models.ToolsDesign
 			propertyDescriptorsList.AddRange(localList);
 
 			return propertyDescriptorsList;
+		}
+
+		protected override void GetRealParameter(DevicesContainer devicesContainer)
+		{
+			for (int i = 0; i < ParametersList.Count; i++)
+			{
+				ParametersList[i] = GetRealParam(
+					ParametersList[i],
+					devicesContainer);
+			}
 		}
 	}
 }

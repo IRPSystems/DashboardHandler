@@ -18,8 +18,12 @@ namespace DashboardHandler.ViewModels
 
 		private DevicesContainer _devicesContainer;
 
-		public DisplayDashboardViewModel(string path)
+		public DisplayDashboardViewModel(
+			string path,
+			DevicesContainer devicesContainer)
         {
+			_devicesContainer = devicesContainer;
+
 			LoadFile(path);
 		}
 
