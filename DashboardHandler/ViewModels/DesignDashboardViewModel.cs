@@ -1,7 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using ControlzEx.Theming;
 using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
 using DashboardHandler.Services;
@@ -11,10 +10,8 @@ using Newtonsoft.Json;
 using Services.Services;
 using Syncfusion.UI.Xaml.Diagram;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -348,7 +345,7 @@ namespace DashboardHandler.ViewModels
 				return;
 
 			toolBase.SetParameter(param);
-			_propertyGrid.SelectedNode = toolBase;
+			SetPropertyGridSelectedNode(toolBase);
 		}
 
 		private void ItemSelected(object e)
@@ -362,6 +359,12 @@ namespace DashboardHandler.ViewModels
 			if (!(node.Content is DesignToolBase toolBase))
 				return;
 
+			SetPropertyGridSelectedNode(toolBase);
+		}
+
+		private void SetPropertyGridSelectedNode(DesignToolBase toolBase)
+		{
+			_propertyGrid.SetHideProperties(toolBase);
 			_propertyGrid.SelectedNode = toolBase;
 		}
 

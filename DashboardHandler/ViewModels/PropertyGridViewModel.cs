@@ -2,8 +2,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DashboardHandler.Models.ToolsDesign;
+using Syncfusion.UI.Xaml.Diagram;
 using Syncfusion.UI.Xaml.Diagram.Stencil;
 using Syncfusion.Windows.PropertyGrid;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Media;
 
 namespace DashboardHandler.ViewModels
@@ -14,6 +17,8 @@ namespace DashboardHandler.ViewModels
 
 		public DesignToolBase SelectedNode { get; set; }
 
+		public ObservableCollection<string> HidePropertiesList { get; set; }
+
 		public Brush Background { get; set; }
 		public Brush Foreround { get; set; }
 
@@ -23,18 +28,21 @@ namespace DashboardHandler.ViewModels
 
 		public PropertyGridViewModel() 
 		{
-			Grid_AutoGeneratingPropertyGridItemCommand = 
-				new RelayCommand<AutoGeneratingPropertyGridItemEventArgs>(Grid_AutoGeneratingPropertyGridItem);
+			HidePropertiesList = new ObservableCollection<string>();
 		}
 
 		#endregion Constructor
 
 		#region Methods
 
-		private void Grid_AutoGeneratingPropertyGridItem(
-			AutoGeneratingPropertyGridItemEventArgs e)
-		{
+		public void SetHideProperties(DesignToolBase tool)
+		{ 
+			HidePropertiesList.Clear();
+			List<string> hideProperties = tool.GetHideProperties();
+			foreach (string property in hideProperties)
+				HidePropertiesList.Add(property);
 
+			OnPropertyChanged(nameof(HidePropertiesList));
 		}
 
 		public void ChangeDarkLight()
@@ -49,7 +57,6 @@ namespace DashboardHandler.ViewModels
 
 		#region Commands
 
-		public RelayCommand<AutoGeneratingPropertyGridItemEventArgs> Grid_AutoGeneratingPropertyGridItemCommand { get; private set; }
 
 		#endregion Commands
 	}

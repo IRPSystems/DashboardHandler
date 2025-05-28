@@ -11,18 +11,8 @@
     <Grid>
         <syncfusion:PropertyGrid  SelectedObject="{Binding SelectedNode}"
                                   ViewBackgroundColor="{Binding Background}"
-                                  Foreground="{Binding Foreround}">
+                                  Foreground="{Binding Foreround}"
+                                  HidePropertiesCollection="{Binding HidePropertiesList}" />
 
-            <i:Interaction.Triggers>
-
-                <i:EventTrigger EventName="AutoGeneratingPropertyGridItem">
-                    <i:InvokeCommandAction Command="{Binding Path=DataContext.Grid_AutoGeneratingPropertyGridItemCommand, 
-                                 Mode=OneWay, 
-                                 RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
-                   PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-        </syncfusion:PropertyGrid>
     </Grid>
 </UserControl>

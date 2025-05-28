@@ -4,6 +4,7 @@ using DeviceCommunicators.Models;
 using DeviceHandler.Models;
 using Syncfusion.UI.Xaml.Diagram;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace DashboardHandler.Models.ToolsDesign
 {
@@ -22,6 +23,7 @@ namespace DashboardHandler.Models.ToolsDesign
 
 		public DesignToolBase()
         {
+			GetHideProperties();
 		}
 
 		public virtual object Clone()
@@ -44,6 +46,27 @@ namespace DashboardHandler.Models.ToolsDesign
 
 			return str;
 		}
+
+		public virtual List<string> GetHideProperties()
+		{
+			List<string> propertyDescriptorsList = new List<string>();
+
+			PropertyDescriptorCollection p = TypeDescriptor.GetProperties(this.GetType());
+			foreach (PropertyDescriptor item in p)
+			{
+				if (item.Name == nameof(ParentNode) ||
+					item.Name == nameof(OffsetX) ||
+					item.Name == nameof(OffsetY) ||
+					item.Name == nameof(Width) ||
+					item.Name == nameof(Height))
+				{
+					propertyDescriptorsList.Add(item.Name);
+				}
+			}
+
+			return propertyDescriptorsList;
+		}
+
 
 		public abstract void SetParameter(DeviceParameterData parameter);
 		public abstract void Init(DevicesContainer devicesContainer);
