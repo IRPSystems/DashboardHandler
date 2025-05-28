@@ -23,11 +23,13 @@ namespace DashboardHandler.ViewModels
 
 		public bool IsLightTheme { get; set; }
 
+		public DevicesContainer DevicesContainer { get; set; }
+
 		#endregion Properties
 
 		#region Fields
 
-		private DevicesContainer _devicesContainer;
+
 
 		#endregion Fields
 
@@ -43,7 +45,7 @@ namespace DashboardHandler.ViewModels
 			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
 
 			Display = new DisplayViewModel();
-			Design = new DesignViewModel(_devicesContainer);
+			Design = new DesignViewModel(DevicesContainer);
 
 			IsLightTheme = false;
 			ChangeDarkLight();
@@ -55,10 +57,10 @@ namespace DashboardHandler.ViewModels
 
 		private void InitDeviceContainer()
 		{
-			_devicesContainer = new DevicesContainer();
-			_devicesContainer.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
-			_devicesContainer.DevicesList = new ObservableCollection<DeviceData>();
-			_devicesContainer.TypeToDevicesFullData = new Dictionary<DeviceTypesEnum, DeviceFullData>();
+			DevicesContainer = new DevicesContainer();
+			DevicesContainer.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
+			DevicesContainer.DevicesList = new ObservableCollection<DeviceData>();
+			DevicesContainer.TypeToDevicesFullData = new Dictionary<DeviceTypesEnum, DeviceFullData>();
 
 			ReadDevicesFileService reader = new ReadDevicesFileService();
 			ObservableCollection<DeviceData> devicesList = new ObservableCollection<DeviceData>();
@@ -73,18 +75,19 @@ namespace DashboardHandler.ViewModels
 				return;
 			}
 
-			_devicesContainer.DevicesList.Add(devicesList[0]);
+			DevicesContainer.DevicesList.Add(devicesList[0]);
 
-			if (_devicesContainer.DevicesFullDataList.Count == 0)
+			if (DevicesContainer.DevicesFullDataList.Count == 0)
 			{
 				DeviceFullData fullData = new DeviceFullData_MCU(devicesList[0], false);
-				_devicesContainer.DevicesFullDataList.Add(fullData);
-				_devicesContainer.TypeToDevicesFullData.Add(DeviceTypesEnum.MCU, fullData);
+				DevicesContainer.DevicesFullDataList.Add(fullData);
+				DevicesContainer.TypeToDevicesFullData.Add(DeviceTypesEnum.MCU, fullData);
 				fullData.Init("TrueDriveManager", null);
+				fullData.InitCheckConnection();
 			}
 			else
 			{
-				DeviceFullData fullData = _devicesContainer.DevicesFullDataList[0];
+				DeviceFullData fullData = DevicesContainer.DevicesFullDataList[0];
 				fullData.Device = devicesList[0];
 			}
 

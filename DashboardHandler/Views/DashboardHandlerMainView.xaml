@@ -5,9 +5,10 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:device_handler_views="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
                  xmlns:local="clr-namespace:DashboardHandler.Views"
                  mc:Ignorable="d"
-                 Title="Dashboard Handler" Height="450" Width="800"
+                 Title="Dashboard Handler" Height="450" Width="1200"
                  WindowState="Maximized">
 
     <Window.Resources>
@@ -27,19 +28,35 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,5,5,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-            <Button Style="{StaticResource ButtonWithIconStyle}"
-                    Width="30"
-                    Height="30"
-                    Margin="0,0,5,0"
-                    ToolTip="Change the background to Dark/Light"
-                    Command="{Binding ChangeDarkLightCommand}"
-                    VerticalAlignment="Center">
-                <iconPacks:Material Kind="InvertColors" />
-            </Button>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" >
 
-        </StackPanel>
+                <Button Style="{StaticResource ButtonWithIconStyle}"
+                        Width="30"
+                        Height="30"
+                        Margin="5,0,5,0"
+                        ToolTip="Change the background to Dark/Light"
+                        Command="{Binding ChangeDarkLightCommand}"
+                        VerticalAlignment="Center">
+                    <iconPacks:Material Kind="InvertColors" />
+                </Button>
+
+            </StackPanel>
+
+            <device_handler_views:CanConnectView Grid.Column="1" 
+                                                 HorizontalAlignment="Center"
+                                                 DataContext="{Binding DevicesContainer.DevicesFullDataList[0].ConnectionViewModel}"/>
+
+            <device_handler_views:CommunicationIndeicatorView Grid.Column="2" 
+                                                              DataContext="{Binding DevicesContainer}"/>
+
+        </Grid>
 
         <Line Grid.Row="1" X1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}"/>
 
