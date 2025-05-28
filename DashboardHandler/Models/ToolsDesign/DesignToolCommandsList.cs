@@ -2,6 +2,7 @@
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using DeviceHandler.ViewModels;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
@@ -28,6 +29,9 @@ namespace DashboardHandler.Models.ToolsDesign
 
 		public override void Init(DevicesContainer devicesContainer)
 		{
+			DeviceFullData deviceFullData = devicesContainer.DevicesFullDataList[0];
+			deviceFullData.ConnectionEvent += DeviceFullData_ConnectionEvent;
+
 			GetRealParameter(devicesContainer);
 
 
@@ -37,6 +41,7 @@ namespace DashboardHandler.Models.ToolsDesign
 				paramGroup.ParamList.Add(param as MCU_ParamData);
 
 			ParamGroup = new ParamGroupViewModel(devicesContainer, paramGroup, true);
+			ParamGroup.GetAllEndedEvent += ParamGroup_GetAllEndedEvent;
 		}
 
 		public override List<string> GetHideProperties()
@@ -66,6 +71,19 @@ namespace DashboardHandler.Models.ToolsDesign
 					ParametersList[i],
 					devicesContainer);
 			}
+		}
+
+		private void DeviceFullData_ConnectionEvent()
+		{
+			if (ParamGroup == null)
+				return;
+
+			ParamGroup.GetAll();
+		}
+
+		private void ParamGroup_GetAllEndedEvent()
+		{
+			ParamGroup.SetButtonsEnabled(true);
 		}
 	}
 }
