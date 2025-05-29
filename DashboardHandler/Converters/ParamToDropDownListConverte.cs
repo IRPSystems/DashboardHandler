@@ -1,5 +1,4 @@
-﻿
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
 using Entities.Models;
 
@@ -10,7 +9,7 @@ namespace DashboardHandler.Converters
 
 		object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if(!(value is IParamWithDropDown withDropDown))
+			if (!(value is IParamWithDropDown withDropDown))
 				return null;
 
 			return withDropDown.DropDown;
@@ -22,6 +21,6 @@ namespace DashboardHandler.Converters
 		}
 
 
-		
+
 	}
 }

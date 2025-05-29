@@ -8,6 +8,7 @@
 			 xmlns:device_handler_plot="clr-namespace:DeviceHandler.Plots;assembly=DeviceHandler"
 			 xmlns:device_handler_views="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
              xmlns:converters="clr-namespace:DashboardHandler.Converters"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:DashboardHandler.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -17,9 +18,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/DeviceHandler;component/Resources/ShowParametersStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
             </ResourceDictionary.MergedDictionaries >
 
             <converters:ParamToDropDownListConverte x:Key="ParamToDropDownListConverte" />
+            <converters:SwitchOnOffDescriptionConverte x:Key="SwitchOnOffDescriptionConverte" />
 
         </ResourceDictionary >
 
@@ -52,6 +55,10 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
@@ -63,7 +70,30 @@
                         <mah:ToggleSwitch Grid.Column="2" 
                                           IsOn="{Binding IsChecked}"
 				                          OffContent="{Binding OffDescription}"
-				                          OnContent="{Binding OnDescription}"/>
+				                          OnContent="{Binding OnDescription}"
+                                          HorizontalAlignment="Left"/>
+
+                        <TextBlock Grid.Column="4" 
+                                   VerticalAlignment="Center">
+
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource SwitchOnOffDescriptionConverte}">
+                                    <Binding Path="IsChecked" />
+                                    <Binding />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                            
+                        </TextBlock>
+
+                        <Button Style="{StaticResource ButtonWithIconStyle}"
+                                Grid.Column="6"
+                                Width="15"
+                                Height="15"
+                                ToolTip="Send parameter"
+                                Command="{Binding SendParameterCommand}"
+                                VerticalAlignment="Center">
+                            <iconPacks:PackIconMaterial Kind="Send" Width="10" Height="10"/>
+                        </Button>
                     </Grid>
                 </DataTemplate>
 
@@ -73,6 +103,8 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0"
@@ -92,6 +124,17 @@
                             </ComboBox.ItemTemplate>
                             
                         </ComboBox>
+                        
+                        <Button Style="{StaticResource ButtonWithIconStyle}"
+                                Grid.Column="4"
+                                Width="15"
+                                Height="15"
+                                ToolTip="Send parameter"
+                                Command="{Binding SendParameterCommand}"
+                                VerticalAlignment="Center">
+                            <iconPacks:PackIconMaterial Kind="Send" Width="10" Height="10"/>
+                        </Button>
+                        
                     </Grid>
                 </DataTemplate>
 
@@ -101,6 +144,8 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0"
@@ -112,6 +157,17 @@
                                  Text="{ Binding Parameter.Value}" 
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Stretch"/>
+
+                        <Button Style="{StaticResource ButtonWithIconStyle}"
+                                Grid.Column="4"
+                                Width="15"
+                                Height="15"
+                                ToolTip="Send parameter"
+                                Command="{Binding SendParameterCommand}"
+                                VerticalAlignment="Center">
+                            <iconPacks:PackIconMaterial Kind="Send" Width="10" Height="10"/>
+                        </Button>
+
                     </Grid>
                 </DataTemplate>
 

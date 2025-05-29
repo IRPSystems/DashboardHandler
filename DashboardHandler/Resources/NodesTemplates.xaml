@@ -6,11 +6,14 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/DeviceHandler;component/Resources/ShowParametersStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
     </ResourceDictionary.MergedDictionaries >
 
     <DataTemplate x:Key="NodeSwitchTemplate">
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="Auto" />
@@ -37,12 +40,24 @@
 
             <TextBlock Grid.Column="4" Text="{Binding OnDescription}" 
                        VerticalAlignment="Center"/>
+
+            <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Grid.Column="6"
+                    Width="15"
+                    Height="15"
+                    ToolTip="Send parent"
+                    VerticalAlignment="Center">
+                <iconPacks:PackIconMaterial Kind="Send" Width="10" Height="10"/>
+            </Button>
+            
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeComboBoxTemplate">
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="Auto" />
@@ -77,12 +92,24 @@
                 </Grid>
 
             </Border>
+
+            <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Grid.Column="6"
+                    Width="15"
+                    Height="15"
+                    ToolTip="Send parent"
+                    VerticalAlignment="Center">
+                <iconPacks:PackIconMaterial Kind="Send" Width="10" Height="10"/>
+            </Button>
+            
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeTextBoxTemplate">
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="Auto" />
@@ -99,6 +126,16 @@
 
                 <TextBlock Text="Value..." Foreground="{DynamicResource MahApps.Brushes.Gray4}" VerticalAlignment="Center"/>
             </Border>
+
+            <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Grid.Column="6"
+                    Width="15"
+                    Height="15"
+                    ToolTip="Send parent"
+                    VerticalAlignment="Center">
+                <iconPacks:PackIconMaterial Kind="Send" Width="10" Height="10"/>
+            </Button>
+
         </Grid>
     </DataTemplate>
 
