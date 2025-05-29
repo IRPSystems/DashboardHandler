@@ -1,15 +1,19 @@
 ﻿
+using CommunityToolkit.Mvvm.Input;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models;
-using Entities.Models;
-using Syncfusion.UI.Xaml.Diagram;
-using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace DashboardHandler.Models.ToolsDesign
 {
     public class DesignToolComboBox : DesignToolBase
 	{
 		public DeviceParameterData Parameter { get; set; }
+
+		public DesignToolComboBox() 
+		{
+			SendParameterCommand = new RelayCommand(SendParameter);
+		}
 
 		public override void SetParameter(DeviceParameterData parameter)
 		{
@@ -27,5 +31,13 @@ namespace DashboardHandler.Models.ToolsDesign
 					Parameter,
 					devicesContainer);
 		}
+
+		private void SendParameter()
+		{
+
+		}
+
+		[JsonIgnore]
+		public RelayCommand SendParameterCommand { get; private set; }
 	}
 }

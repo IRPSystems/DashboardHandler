@@ -5,8 +5,11 @@ using DeviceCommunicators.Models;
 using DeviceHandler.Models;
 using DeviceHandler.Models.DeviceFullDataModels;
 using Syncfusion.UI.Xaml.Diagram;
+using Syncfusion.Windows.Tools.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Media;
 
 namespace DashboardHandler.Models.ToolsDesign
 {
@@ -23,9 +26,15 @@ namespace DashboardHandler.Models.ToolsDesign
 		public double Width { get; set; }
 		public double Height { get; set; }
 
+		public Brush Background { get; set; }
+		public Brush Foreground { get; set; }
+
 		public DesignToolBase()
         {
 			GetHideProperties();
+
+			Background = Application.Current.FindResource("MahApps.Brushes.ThemeBackground") as SolidColorBrush;
+			Foreground = Application.Current.FindResource("MahApps.Brushes.ThemeForeground") as SolidColorBrush;
 		}
 
 		public virtual object Clone()

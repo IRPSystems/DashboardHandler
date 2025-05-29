@@ -51,11 +51,9 @@
             <ItemsControl.Resources>
 
                 <DataTemplate DataType="{x:Type tools:DesignToolSwitch}">
-                    <Grid>
+                    <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="5" />
-                            <ColumnDefinition Width="45" />
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="5" />
@@ -67,23 +65,32 @@
                                    VerticalAlignment="Center"
                                    FontWeight="DemiBold"/>
 
-                        <mah:ToggleSwitch Grid.Column="2" 
-                                          IsOn="{Binding IsChecked}"
-				                          OffContent="{Binding OffDescription}"
-				                          OnContent="{Binding OnDescription}"
-                                          HorizontalAlignment="Left"/>
+                        <Border Grid.Column="2" Background="{Binding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="4" 
-                                   VerticalAlignment="Center">
+                                <mah:ToggleSwitch Grid.Column="0" 
+                                                  IsOn="{Binding IsChecked}"
+                                                  HorizontalAlignment="Left"
+                                                  Command="{Binding SwithStateChangedCommand}"/>
 
-                            <TextBlock.Text>
-                                <MultiBinding Converter="{StaticResource SwitchOnOffDescriptionConverte}">
-                                    <Binding Path="IsChecked" />
-                                    <Binding />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                            
-                        </TextBlock>
+
+                                <TextBlock Grid.Column="2" VerticalAlignment="Center">
+
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource SwitchOnOffDescriptionConverte}">
+                                            <Binding Path="IsChecked" />
+                                            <Binding />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+
+                                </TextBlock>
+                            </Grid>
+                        </Border>
 
                         <Button Style="{StaticResource ButtonWithIconStyle}"
                                 Grid.Column="6"
