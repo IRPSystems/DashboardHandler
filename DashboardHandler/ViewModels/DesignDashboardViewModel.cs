@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DashboardHandler.Interfaces;
 using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
 using DashboardHandler.Services;
@@ -18,7 +19,7 @@ using System.Windows.Media;
 
 namespace DashboardHandler.ViewModels
 {
-	public class DesignDashboardViewModel: ObservableObject
+	public class DesignDashboardViewModel: ObservableObject, IDashboardVM
 	{
 		#region Properties
 

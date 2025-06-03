@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DashboardHandler.Views;
 using DeviceHandler.Models;
 using Microsoft.Win32;
 using System.IO;
@@ -81,7 +82,7 @@ namespace DashboardHandler.ViewModels
 					saveFileDialog.FileName,
 					_propertyGrid);
 
-			DesignDocing.AddDashboard(vm);
+			DesignDocing.AddDashboard(vm, new DesignDashboardView());
 			_designDashboardList.Add(vm);
 
 			vm.Save();
@@ -105,7 +106,7 @@ namespace DashboardHandler.ViewModels
 
 			vm.Open(openFileDialog.FileName);
 
-			DesignDocing.AddDashboard(vm);
+			DesignDocing.AddDashboard(vm, new DesignDashboardView());
 			_designDashboardList.Add(vm);
 		}
 

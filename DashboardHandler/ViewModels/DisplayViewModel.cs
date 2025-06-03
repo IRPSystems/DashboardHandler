@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DashboardHandler.Views;
 using DeviceHandler.Models;
 using Microsoft.Win32;
 
@@ -36,7 +37,7 @@ namespace DashboardHandler.ViewModels
 					_devicesContainer);
 
 
-			DisplayDokcing.AddDashboard(vm);
+			DisplayDokcing.AddDashboard(vm, new DisplayDashboardView());
 
 		}
 
