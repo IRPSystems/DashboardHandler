@@ -35,10 +35,20 @@
             
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas Height="{Binding CanvasHeight}"
+                            Width="{Binding CanvasWidth}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            
+
+            <ItemsControl.Template>
+                <ControlTemplate TargetType=  "ItemsControl">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
                     <Setter Property="Canvas.Left" Value="{Binding OffsetX}" />

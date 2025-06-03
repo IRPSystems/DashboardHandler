@@ -4,11 +4,8 @@ using DashboardHandler.Interfaces;
 using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
 using DeviceHandler.Models;
-using Microsoft.Win32;
 using Newtonsoft.Json;
 using Services.Services;
-using Syncfusion.Windows.PropertyGrid;
-using System.Collections.ObjectModel;
 using System.IO;
 
 namespace DashboardHandler.ViewModels
@@ -16,6 +13,8 @@ namespace DashboardHandler.ViewModels
     public class DisplayDashboardViewModel: ObservableObject, IDashboardVM
 	{
 		public DesignDiagramData DesignDiagram { get; set; }
+		public double CanvasHeight { get; set; }
+		public double CanvasWidth { get; set; }
 
 		private DevicesContainer _devicesContainer;
 
@@ -24,7 +23,6 @@ namespace DashboardHandler.ViewModels
 			DevicesContainer devicesContainer)
         {
 			_devicesContainer = devicesContainer;
-
 			LoadFile(path);
 		}
 
@@ -39,10 +37,23 @@ namespace DashboardHandler.ViewModels
 				settings.TypeNameHandling = TypeNameHandling.All;
 				DesignDiagram = JsonConvert.DeserializeObject(jsonString, settings) as DesignDiagramData;
 
+				double maxBottom = 0;
+				double maxRight = 0;
 				foreach (DesignToolBase tool in DesignDiagram.ToolList)
 				{
 					tool.Init(_devicesContainer);
+
+					double toolBottom = GetToolBottom(tool);
+					if (toolBottom > maxBottom) 
+						maxBottom = toolBottom;
+
+					double toolRight = GetToolRight(tool);
+					if (toolRight > maxRight)
+						maxRight = toolRight;
 				}
+
+				CanvasHeight = maxBottom;
+				CanvasWidth = maxRight;
 			}
 			catch (Exception ex) 
 			{
@@ -50,5 +61,16 @@ namespace DashboardHandler.ViewModels
 			}
 		}
 
+		private double GetToolBottom(DesignToolBase tool)
+		{
+			double bottom = tool.OffsetY + tool.Height;
+			return bottom;
+		}
+
+		private double GetToolRight(DesignToolBase tool)
+		{
+			double right = tool.OffsetX + tool.Width;
+			return right;
+		}
 	}
 }
