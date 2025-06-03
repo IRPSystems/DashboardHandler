@@ -9,6 +9,7 @@
 			 xmlns:device_handler_views="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
              xmlns:converters="clr-namespace:DashboardHandler.Converters"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:DashboardHandler.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -122,14 +123,25 @@
                         <ComboBox Grid.Column="2" 
                                   ItemsSource="{Binding Parameter, Converter={StaticResource ParamToDropDownListConverte}}"
 				                  SelectedItem = "{Binding SelectedItem}"
-                                  VerticalAlignment="Center">
+                                  VerticalAlignment="Center"
+                                  Background="{Binding Background}">
 
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-                            
+
+                            <i:Interaction.Triggers>
+
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.ComboBox_SelectionChangedCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}" 
+                                               PassEventArgsToCommand="False"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
                         </ComboBox>
                         
                         <Button Style="{StaticResource ButtonWithIconStyle}"
@@ -163,7 +175,20 @@
                         <TextBox Grid.Column="2"
                                  Text="{ Binding Parameter.Value}" 
                                  VerticalAlignment="Center"
-                                 HorizontalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch"
+                                 Background="{Binding Background}">
+
+                            <i:Interaction.Triggers>
+
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.TextBox_TextChangedCommand, 
+                                                                             Mode=OneWay, 
+                                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}" 
+                                                               PassEventArgsToCommand="False"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                        </TextBox>
 
                         <Button Style="{StaticResource ButtonWithIconStyle}"
                                 Grid.Column="4"
