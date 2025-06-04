@@ -26,6 +26,7 @@ namespace DashboardHandler.ViewModels
 			CloseAllTabs += DesignDocingViewModel_CloseAllTabs;
 			CloseButtonClick += DesignDocingViewModel_CloseButtonClick;
 			CloseOtherTabs += DesignDocingViewModel_CloseOtherTabs;
+			WindowClosing += DocumantsDokcingViewModel_WindowClosing;
 
 			NameToDashboardDict = new Dictionary<string, IDashboardVM>();
 		}
@@ -91,6 +92,16 @@ namespace DashboardHandler.ViewModels
 			RemoveWindows(childrensToRemove);
 		}
 
+		private void DocumantsDokcingViewModel_WindowClosing(object sender, WindowClosingEventArgs e)
+		{
+			List<ContentControl> childrensToRemove = new List<ContentControl>()
+			{
+				e.TargetItem as ContentControl,
+			};
+
+			RemoveWindows(childrensToRemove);
+		}
+
 		private void DesignDocingViewModel_CloseButtonClick(object sender, CloseButtonEventArgs e)
 		{
 			List<ContentControl> childrensToRemove = new List<ContentControl>()
@@ -118,7 +129,7 @@ namespace DashboardHandler.ViewModels
 			{
 				Children.Remove(window);
 
-				if (!(window.Content is DisplayDashboardView dashboardV))
+				if (!(window.Content is IDashboardV dashboardV))
 					continue;
 
 				if (!(dashboardV.DataContext is IDashboardVM dashboardVM))
