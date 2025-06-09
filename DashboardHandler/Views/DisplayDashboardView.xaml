@@ -221,13 +221,11 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0"
-                                   Text="{Binding Parameter.Name}" 
-                                   VerticalAlignment="Center"
-                                   FontWeight="DemiBold"/>
-
-                        <Grid Grid.Column="2" Canvas.Top="{Binding OffsetY}" Canvas.Left="{Binding OffsetX}" 
-                              Background="Transparent" >
+                        <Grid Grid.Column="0" 
+                              Canvas.Top="{Binding OffsetY}" 
+                              Canvas.Left="{Binding OffsetX}" 
+                              Background="Transparent" 
+                              Width="{Binding Height}">
 
                             <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" />
 
@@ -259,6 +257,13 @@
                             </Ellipse >
 
                         </Grid >
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding Parameter.Name}" 
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"/>
+
+                        
                     </Grid>
                 </DataTemplate>
 

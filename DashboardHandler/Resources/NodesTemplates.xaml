@@ -147,20 +147,16 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" 
-                       Text="{Binding Parameter.Name}" 
-                       VerticalAlignment="Center"
-                       FontWeight="DemiBold"/>
-
-            <Grid Grid.Column="2" 
+            <Grid Grid.Column="0" 
                   Margin="5"
-                  Background="Transparent">
+                  Background="Transparent"
+                  Width="{Binding Height}">
 
                 <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"/>
 
 
                 <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}"                      
-                     Margin="3">
+                         Margin="3">
 
                     <Ellipse.Resources>
 
@@ -182,6 +178,13 @@
 
                 </Ellipse>
             </Grid>
+
+            <TextBlock Grid.Column="2" 
+                       Text="{Binding Parameter.Name}" 
+                       VerticalAlignment="Center"
+                       FontWeight="DemiBold"/>
+
+            
         </Grid>
     </DataTemplate>
 
