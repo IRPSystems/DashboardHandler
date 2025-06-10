@@ -65,7 +65,7 @@ namespace DashboardHandler.ViewModels
 			ReadDevicesFileService reader = new ReadDevicesFileService();
 			ObservableCollection<DeviceData> devicesList = new ObservableCollection<DeviceData>();
 			reader.ReadFromMCUJson(
-				"C:\\Projects\\Evva\\Evva\\Data\\Device Communications\\param_defaults.json",
+				@"C:\Users\smadar\Documents\Stam\Json files\_param_defaults_All.json",
 				devicesList,
 				"MCU",
 				DeviceTypesEnum.MCU);

@@ -65,10 +65,11 @@ namespace DashboardHandler.Models.ToolsDesign
 				value = Convert.ToDouble(param.Value);
 			}
 
-			if (value == OffValue)
-				IsChecked = false;
+			
 			if (value == OnValue)
 				IsChecked = true;
+			else
+				IsChecked = false;
 		}
 	}
 }
