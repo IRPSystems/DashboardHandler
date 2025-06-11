@@ -1,4 +1,4 @@
-﻿using DashboardHandler.Interfaces;
+﻿using Controls.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace DashboardHandler.Views
     /// <summary>
     /// Interaction logic for DisplayDashboardView.xaml
     /// </summary>
-    public partial class DisplayDashboardView : UserControl, IDashboardV
+    public partial class DisplayDashboardView : UserControl, IDocumentV
 	{
         public DisplayDashboardView()
         {

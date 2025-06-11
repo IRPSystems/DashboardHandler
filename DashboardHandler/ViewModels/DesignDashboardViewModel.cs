@@ -1,7 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DashboardHandler.Interfaces;
+using Controls.Interfaces;
 using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
 using DashboardHandler.Services;
@@ -19,7 +19,7 @@ using System.Windows.Media;
 
 namespace DashboardHandler.ViewModels
 {
-	public class DesignDashboardViewModel: ObservableObject, IDashboardVM
+	public class DesignDashboardViewModel: ObservableObject, IDocumentVM
 	{
 		#region Properties
 
@@ -31,6 +31,17 @@ namespace DashboardHandler.ViewModels
 		public Syncfusion.UI.Xaml.Diagram.CommandManager CommandManager { get; set; }
 
 		public PageSettings PageSettings { get; set; }
+
+		public string Name
+		{
+			get
+			{
+				if(DesignDiagram == null)
+					return null;
+				return DesignDiagram.Name;
+			}
+			set { }
+		}
 
 		#endregion Properties
 

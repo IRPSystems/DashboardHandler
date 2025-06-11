@@ -1,4 +1,6 @@
 ﻿
+using Controls.ViewModels;
+
 namespace DashboardHandler.ViewModels
 {
 	public class DisplayDokcingViewModel : DocumantsDokcingViewModel

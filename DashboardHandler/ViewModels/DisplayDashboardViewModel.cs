@@ -1,6 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
-using DashboardHandler.Interfaces;
+using Controls.Interfaces;
 using DashboardHandler.Models;
 using DashboardHandler.Models.ToolsDesign;
 using DeviceHandler.Models;
@@ -10,11 +10,22 @@ using System.IO;
 
 namespace DashboardHandler.ViewModels
 {
-    public class DisplayDashboardViewModel: ObservableObject, IDashboardVM
+    public class DisplayDashboardViewModel: ObservableObject, IDocumentVM
 	{
 		public DesignDiagramData DesignDiagram { get; set; }
 		public double CanvasHeight { get; set; }
 		public double CanvasWidth { get; set; }
+
+		public string Name
+		{
+			get
+			{
+				if (DesignDiagram == null)
+					return null;
+				return DesignDiagram.Name;
+			}
+			set { }
+		}
 
 		private DevicesContainer _devicesContainer;
 
