@@ -3,6 +3,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Dashboard.ViewModels;
 using DeviceCommunicators.Models;
 using DeviceCommunicators.Services;
 using DeviceHandler.Models;
@@ -10,6 +11,7 @@ using DeviceHandler.Models.DeviceFullDataModels;
 using Entities.Enums;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Windows;
 
 namespace DashboardHandler.ViewModels
 {
@@ -29,7 +31,7 @@ namespace DashboardHandler.ViewModels
 
 		#region Fields
 
-
+		private ResourceDictionary _appResources;
 
 		#endregion Fields
 
@@ -37,6 +39,8 @@ namespace DashboardHandler.ViewModels
 
 		public DashboardHandlerMainViewModel() 
 		{
+			_appResources = Application.Current.Resources;
+
 			Assembly assembly = Assembly.GetExecutingAssembly();
 			Version = assembly.GetName().Version.ToString();
 
@@ -45,7 +49,7 @@ namespace DashboardHandler.ViewModels
 			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
 
 			Display = new DisplayViewModel(DevicesContainer);
-			Design = new DesignViewModel(DevicesContainer);
+			Design = new DesignViewModel(DevicesContainer, _appResources);
 
 			IsLightTheme = false;
 			ChangeDarkLight();

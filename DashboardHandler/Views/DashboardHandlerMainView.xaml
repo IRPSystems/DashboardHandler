@@ -6,6 +6,7 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  xmlns:device_handler_views="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
+                 xmlns:dashboard_views="clr-namespace:Dashboard.Views;assembly=Dashboard"
                  xmlns:local="clr-namespace:DashboardHandler.Views"
                  mc:Ignorable="d"
                  Title="Dashboard Handler" Height="450" Width="1200"
@@ -65,11 +66,11 @@
                     SelectedIndex="0">
 
             <TabItem Header="Design" >
-                <local:DesignView DataContext="{Binding Design}"/>
+                <dashboard_views:DesignView DataContext="{Binding Design}"/>
             </TabItem>
             
             <TabItem Header="Display" >
-                <local:DisplayView DataContext="{Binding Display}"/>
+                <dashboard_views:DisplayView DataContext="{Binding Display}"/>
             </TabItem>
 
         </TabControl>
