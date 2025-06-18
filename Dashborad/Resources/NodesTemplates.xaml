@@ -220,17 +220,115 @@
     </DataTemplate>
 
     <DataTemplate x:Key="NodeRegisterTemplate">
-        <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray3}" BorderThickness="1" Background="Transparent">
-            <StackPanel Orientation="Horizontal">
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" Background="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1" Margin="0,0,2,0" Height="20" Width="10"/>
+        <Grid DataContext="{Binding Register}" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                <TextBlock Text="Bit size" VerticalAlignment="Center" FontWeight="DemiBold" Margin="0,0,20,0" />
+
+                <RadioButton Content="8 bits" IsChecked="{Binding Is8Bit}" GroupName="{Binding GroupName}" Margin="0,0,20,0" Command="{Binding BitSizeChangedCommand}"/>
+                <RadioButton Content="16 bits" IsChecked="{Binding Is16Bit}" GroupName="{Binding GroupName}" Margin="0,0,20,0" Command="{Binding BitSizeChangedCommand}"/>
+                <RadioButton Content="32 bits" IsChecked="{Binding Is32Bit}" GroupName="{Binding GroupName}" Margin="0,0,20,0" Command="{Binding BitSizeChangedCommand}"/>
+
             </StackPanel>
-        </Border>
+
+            <ListView Grid.Row="2" ItemsSource="{Binding RegisterBitsList}" Name="lvRegisters">
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Grid Margin="2,0" Width="15" ToolTipService.InitialShowDelay="1" Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="2" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Row="0" BorderBrush="{DynamicResource MahApps.Brushes.Gray10}" BorderThickness="1" >
+                                            <Border.Resources>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+
+                                                        <DataTrigger Binding="{Binding IsOn}" Value="True">
+                                                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}"/>
+                                                        </DataTrigger>
+
+                                                        <DataTrigger Binding="{Binding IsOn}" Value="False">
+                                                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray1}"/>
+                                                        </DataTrigger>
+
+                                                        <DataTrigger Binding="{Binding IsOn}" Value="{x:Null}">
+                                                            <Setter Property="Background" Value="Red"/>
+                                                        </DataTrigger>
+
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Resources>
+                                        </Border>
+
+                                        <TextBlock Grid.Row="2" Text="{Binding Index}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+            </ListView>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal">
+
+                <TextBlock Text="Name" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="DemiBold"/>
+                <TextBlock Name="tbName" Text="{Binding ParamData.Name}" VerticalAlignment="Center" Margin="0,0,50,0" MinWidth="120"/>
+
+                <TextBlock Text="Raw value" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="DemiBold"/>
+                <TextBox Text="{Binding ParamData.Value}" 
+                         VerticalAlignment="Center" 
+                         Margin="0,0,50,0" 
+                         IsReadOnly="True" 
+                         BorderThickness="0"
+                         Name="tbRawValue"/>    
+
+
+
+
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="6" Orientation="Horizontal">
+                <TextBlock Text="Description" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="DemiBold"/>
+                <TextBox Text="{Binding ParamData.Description}" IsReadOnly="True" TextWrapping="Wrap" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 VerticalContentAlignment="Center"
+                 BorderThickness="0"
+                 Name="tbDescription"/>
+            </StackPanel>
+        </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeMonitorListTemplate">
