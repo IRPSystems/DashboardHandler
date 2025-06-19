@@ -262,26 +262,26 @@ namespace Dashboard.ViewModels
 				case "Gauge":
 					node.Content = new DesignToolGauge();
 					node.UnitWidth = 100;
-					node.UnitHeight = 100;
+					node.UnitHeight = 150;
 					break;
 				case "Chart":
 					node.Content = new DesignToolChart();
-					node.UnitWidth = 100;
-					node.UnitHeight = 100;
+					node.UnitWidth = 150;
+					node.UnitHeight = 150;
 					break;
 				case "Register":
 					node.Content = new DesignToolRegister();
-					node.UnitWidth = 100;
-					node.UnitHeight = 40;
+					node.UnitWidth = 350;
+					node.UnitHeight = 200;
 					break;
 				case "MonitorList":
 					node.Content = new DesignToolMonitorList();
-					node.UnitWidth = 300;
+					node.UnitWidth = 420;
 					node.UnitHeight = 100;
 					break;
 				case "CommandsList":
 					node.Content = new DesignToolCommandsList();
-					node.UnitWidth = 300;
+					node.UnitWidth = 500;
 					node.UnitHeight = 100;
 					break;
 			}

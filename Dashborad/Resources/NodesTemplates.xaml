@@ -283,10 +283,17 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" 
+            <TextBlock Grid.Column="0" 
+                       Name="tbParamName"
                        Text="{Binding Parameter.Name}" 
                        VerticalAlignment="Center"
                        FontWeight="DemiBold"/>
+            <TextBlock Grid.Column="0" 
+                       Name="tbNoParam"
+                       Text="Parameter name..." 
+                       VerticalAlignment="Center"
+                       FontWeight="DemiBold"
+                       Visibility="Collapsed"/>
 
             <Border Grid.Row="2" >
                 <iconPacks:PackIconMaterial Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}"
@@ -295,6 +302,15 @@
                                             Background="Transparent" />
             </Border>
         </Grid>
+
+        <DataTemplate.Triggers>
+
+            <DataTrigger Binding="{Binding Parameter}" Value="{x:Null}">
+                <Setter TargetName="tbParamName" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="tbNoParam" Property="Visibility" Value="Visible" />
+            </DataTrigger>
+
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="NodeChartTemplate">
