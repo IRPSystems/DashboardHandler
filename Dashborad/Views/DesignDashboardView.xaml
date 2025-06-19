@@ -63,11 +63,16 @@
 
         <syncfusion:SfDiagram Grid.Row="2"
                               Nodes="{Binding Nodes}"
-                              SnapSettings="{Binding SnapSettings}"
+                              SnapSettings="{Binding SnapSettings}"      
+                              PageSettings="{Binding PageSettings}"
+                              SelectedItems="{Binding SelectedItems}"
+                              
                               ItemAddedCommand="{Binding ItemAddedCommand}"
                               ItemSelectedCommand="{Binding ItemSelectedCommand}"
+                              ItemSelectingCommand="{Binding ItemSelectingCommand}"
                               ItemDeletedCommand="{Binding ItemDeletedCommand}"
-                              PageSettings="{Binding PageSettings}"
+                              
+                              
                               Background="{DynamicResource MahApps.Brushes.ThemeBackground}">
 
             <i:Interaction.Triggers>
