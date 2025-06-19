@@ -241,22 +241,22 @@ namespace Dashboard.ViewModels
 			{
 				case "Switch":
 					node.Content = new DesignToolSwitch();
-					node.UnitWidth = 250;
+					node.UnitWidth = 270;
 					node.UnitHeight = 40;
 					break;
 				case "ComboBox":
 					node.Content = new DesignToolComboBox();
-					node.UnitWidth = 100;
+					node.UnitWidth = 250;
 					node.UnitHeight = 40;
 					break;
 				case "TextBox":
 					node.Content = new DesignToolTextBox();
-					node.UnitWidth = 100;
+					node.UnitWidth = 250;
 					node.UnitHeight = 40;
 					break;
 				case "Led":
 					node.Content = new DesignToolLed();
-					node.UnitWidth = 40;
+					node.UnitWidth = 200;
 					node.UnitHeight = 40;
 					break;
 				case "Gauge":
