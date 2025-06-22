@@ -32,6 +32,10 @@ namespace Dashboard.ViewModels
 
 		public PageSettings PageSettings { get; set; }
 
+		public object SelectedItems { get; set; }
+
+		public bool IsNeedSave { get; set; }
+
 		public string Name
 		{
 			get
@@ -73,10 +77,13 @@ namespace Dashboard.ViewModels
 			Nodes = new NodeCollection();
 			PageSettings = new PageSettings();
 
+			IsNeedSave = false;
+
 			ItemAddedCommand = new RelayCommand<object>(ItemAdded);
 			ItemDeletedCommand = new RelayCommand<object>(ItemDeleted);
 			Diagram_DropCommand = new RelayCommand<DragEventArgs>(Diagram_Drop);
 			ItemSelectedCommand = new RelayCommand<object>(ItemSelected);
+			ItemSelectingCommand = new RelayCommand<object>(ItemSelecting);
 			SaveDashboradCommand = new RelayCommand(Save);
 			GenerateDashboradCommand = new RelayCommand(GenerateDashborad);
 
@@ -87,6 +94,7 @@ namespace Dashboard.ViewModels
 			ChangeDarkLight();
 
 			_generateService = new GenerateService();
+			SelectedItems = new SelectorViewModel();
 		}
 
 		#endregion Constructor
@@ -114,6 +122,8 @@ namespace Dashboard.ViewModels
 			settings.TypeNameHandling = TypeNameHandling.All;
 			var sz = JsonConvert.SerializeObject(DesignDiagram, settings);
 			File.WriteAllText(DesignDiagram.FilePath, sz);
+
+			IsNeedSave = false;
 		}
 
 		public void Open(string path)
@@ -132,7 +142,11 @@ namespace Dashboard.ViewModels
 				
 				InitNodeBySymbol(null, toolName, tool);
 			}
+
+			IsNeedSave = false;
 		}
+
+		#region Add node
 
 		private void ItemAdded(object item)
 		{
@@ -152,27 +166,19 @@ namespace Dashboard.ViewModels
 			}
 		}
 
-		private void ItemDeleted(object item)
-		{
-			if (!(item is ItemDeletedEventArgs itemDeleted))
-				return;
-
-			if (!(itemDeleted.Item is NodeViewModel node))
-				return;
-
-			DesignDiagram.ToolList.Remove(node.Content as DesignToolBase);
-		}
-
 		private void InitNodeBySymbol(
 			NodeViewModel node,
 			string toolName,
 			DesignToolBase tool = null)
 		{
-			if(node == null)
+			if (node == null)
 			{
 				node = new NodeViewModel();
 				node.Content = tool;
 				Nodes.Add(node);
+
+				(node.Content as DesignToolBase).PropertyChanged +=  
+					DesignTool_PropertyChanged;
 			}
 
 			node.ID = toolName;
@@ -194,7 +200,7 @@ namespace Dashboard.ViewModels
 		}
 
 		private void SetNewNodeTemplate(
-			NodeViewModel node, 
+			NodeViewModel node,
 			string toolName)
 		{
 			switch (toolName)
@@ -237,51 +243,56 @@ namespace Dashboard.ViewModels
 			{
 				case "Switch":
 					node.Content = new DesignToolSwitch();
-					node.UnitWidth = 100;
+					node.UnitWidth = 270;
 					node.UnitHeight = 40;
 					break;
 				case "ComboBox":
 					node.Content = new DesignToolComboBox();
-					node.UnitWidth = 100;
+					node.UnitWidth = 250;
 					node.UnitHeight = 40;
 					break;
 				case "TextBox":
 					node.Content = new DesignToolTextBox();
-					node.UnitWidth = 100;
+					node.UnitWidth = 250;
 					node.UnitHeight = 40;
 					break;
 				case "Led":
 					node.Content = new DesignToolLed();
-					node.UnitWidth = 40;
+					node.UnitWidth = 200;
 					node.UnitHeight = 40;
 					break;
 				case "Gauge":
 					node.Content = new DesignToolGauge();
 					node.UnitWidth = 100;
-					node.UnitHeight = 100;
+					node.UnitHeight = 150;
 					break;
 				case "Chart":
 					node.Content = new DesignToolChart();
-					node.UnitWidth = 100;
-					node.UnitHeight = 100;
+					node.UnitWidth = 150;
+					node.UnitHeight = 150;
 					break;
 				case "Register":
 					node.Content = new DesignToolRegister();
-					node.UnitWidth = 100;
-					node.UnitHeight = 40;
+					node.UnitWidth = 350;
+					node.UnitHeight = 200;
 					break;
 				case "MonitorList":
 					node.Content = new DesignToolMonitorList();
-					node.UnitWidth = 300;
+					node.UnitWidth = 420;
 					node.UnitHeight = 100;
 					break;
 				case "CommandsList":
 					node.Content = new DesignToolCommandsList();
-					node.UnitWidth = 300;
+					node.UnitWidth = 500;
 					node.UnitHeight = 100;
 					break;
 			}
+
+			(node.Content as DesignToolBase).PropertyChanged += 
+				DesignTool_PropertyChanged;
 		}
+
+		
 
 		private void MatchNewNodeToTool(
 			NodeViewModel node,
@@ -306,6 +317,21 @@ namespace Dashboard.ViewModels
 				toolNew.Height = node.UnitHeight;
 			}
 		}
+
+		#endregion Add node
+
+		private void ItemDeleted(object item)
+		{
+			if (!(item is ItemDeletedEventArgs itemDeleted))
+				return;
+
+			if (!(itemDeleted.Item is NodeViewModel node))
+				return;
+
+			DesignDiagram.ToolList.Remove(node.Content as DesignToolBase);
+
+			IsNeedSave = true;
+		}		
 
 		private void Node_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
@@ -334,6 +360,13 @@ namespace Dashboard.ViewModels
 			{
 				tool.Height = node.UnitHeight;
 			}
+		}
+
+
+
+		private void DesignTool_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			IsNeedSave = true;
 		}
 
 		private void Diagram_Drop(DragEventArgs e)
@@ -378,6 +411,14 @@ namespace Dashboard.ViewModels
 			SetPropertyGridSelectedNode(toolBase);
 		}
 
+		private void ItemSelecting(object e)
+		{
+			//SelectorViewModel svm = (SelectedItems as SelectorViewModel);
+			//svm.SelectorConstraints =
+			//	svm.SelectorConstraints & ~SelectorConstraints.QuickCommands;
+			//(svm.Commands as QuickCommandCollection).RemoveAt(1);
+		}
+
 		private void SetPropertyGridSelectedNode(DesignToolBase toolBase)
 		{
 			_propertyGrid.SetHideProperties(toolBase);
@@ -398,6 +439,7 @@ namespace Dashboard.ViewModels
 		public RelayCommand<object> ItemDeletedCommand { get; private set; }
 		public RelayCommand<DragEventArgs> Diagram_DropCommand { get; private set; }
 		public RelayCommand<object> ItemSelectedCommand { get; private set; }
+		public RelayCommand<object> ItemSelectingCommand { get; private set; }
 
 
 		public RelayCommand SaveDashboradCommand { get; private set; }

@@ -34,40 +34,66 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <Button Style="{StaticResource ButtonWithIconStyle}"
-                    Width="25"
-                    Height="25"
-                    Margin="0,0,5,0"
-                    ToolTip="Save dashborad"
-                    Command="{Binding SaveDashboradCommand}"
-                    VerticalAlignment="Center">
-                <iconPacks:Material Kind="ContentSave" />
-            </Button>
-            
-            <!--<Button Style="{StaticResource ButtonWithIconStyle}"
-                    Width="25"
-                    Height="25"
-                    Margin="0,0,5,0"
-                    ToolTip="Generate dashborad"
-                    Command="{Binding GenerateDashboradCommand}"
-                    VerticalAlignment="Center">
-                <iconPacks:PackIconMaterial Kind="AutoFix" />
-            </Button>-->
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
 
-        </StackPanel>
+                <Button Style="{StaticResource ButtonWithIconStyle}"
+                        Width="25"
+                        Height="25"
+                        Margin="0,0,5,0"
+                        ToolTip="Save dashborad"
+                        Command="{Binding SaveDashboradCommand}"
+                        VerticalAlignment="Center">
+                    <iconPacks:Material Kind="ContentSave" />
+                </Button>
+
+            </StackPanel>
+
+            <Border Grid.Column="2">
+                <Border.Resources>
+
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding IsNeedSave}" Value="False">
+                                <Setter Property="Background" Value="Transparent" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsNeedSave}" Value="True">
+                                <Setter Property="Background" Value="Orange" />
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                    
+                </Border.Resources>                
+            </Border>
+
+        </Grid>
+
+        
 
         <Line Grid.Row="1" X1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}" />
 
 
         <syncfusion:SfDiagram Grid.Row="2"
                               Nodes="{Binding Nodes}"
-                              SnapSettings="{Binding SnapSettings}"
+                              SnapSettings="{Binding SnapSettings}"      
+                              PageSettings="{Binding PageSettings}"
+                              SelectedItems="{Binding SelectedItems}"
+                              
                               ItemAddedCommand="{Binding ItemAddedCommand}"
                               ItemSelectedCommand="{Binding ItemSelectedCommand}"
+                              ItemSelectingCommand="{Binding ItemSelectingCommand}"
                               ItemDeletedCommand="{Binding ItemDeletedCommand}"
-                              PageSettings="{Binding PageSettings}"
+                              
+                              
                               Background="{DynamicResource MahApps.Brushes.ThemeBackground}">
 
             <i:Interaction.Triggers>

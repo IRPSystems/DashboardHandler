@@ -69,7 +69,9 @@ namespace Dashboard.Models.ToolsDesign
 					item.Name == nameof(OffsetX) ||
 					item.Name == nameof(OffsetY) ||
 					item.Name == nameof(Width) ||
-					item.Name == nameof(Height))
+					item.Name == nameof(Height) ||
+					item.Name == nameof(Background) ||
+					item.Name == nameof(Foreground))
 				{
 					propertyDescriptorsList.Add(item.Name);
 				}
@@ -116,6 +118,7 @@ namespace Dashboard.Models.ToolsDesign
 		public abstract void Init(DevicesContainer devicesContainer);
 
 		protected abstract void GetRealParameter(DevicesContainer devicesContainer);
+
 
 	}
 }

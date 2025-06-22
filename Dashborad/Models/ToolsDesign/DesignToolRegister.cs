@@ -12,7 +12,16 @@ namespace Dashboard.Models.ToolsDesign
 {
     public class DesignToolRegister : DesignToolBase
     {
-		public DeviceParameterData Parameter { get; set; }
+		private DeviceParameterData _parameter;
+		public DeviceParameterData Parameter 
+		{
+			get => _parameter;
+			set
+			{
+				_parameter = value;
+				Register = new RegisterViewModel(Parameter as MCU_ParamData);
+			}
+		}
 
 		[JsonIgnore]
 		public RegisterViewModel Register { get; set; }
@@ -26,7 +35,7 @@ namespace Dashboard.Models.ToolsDesign
 		{
 			GetRealParameter(devicesContainer);
 
-			Register = new RegisterViewModel(Parameter as MCU_ParamData);
+			//Register = new RegisterViewModel(Parameter as MCU_ParamData);
 
 			DeviceFullData deviceFullData = devicesContainer.DevicesFullDataList[0];
 			deviceFullData.ParametersRepository.Add(

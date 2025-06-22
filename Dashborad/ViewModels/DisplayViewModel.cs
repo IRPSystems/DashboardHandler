@@ -36,6 +36,9 @@ namespace Dashboard.ViewModels
 					openFileDialog.FileName,
 					_devicesContainer);
 
+			if (vm.Name == null)
+				return;
+
 
 			DisplayDokcing.AddDashboard(vm, new DisplayDashboardView());
 
