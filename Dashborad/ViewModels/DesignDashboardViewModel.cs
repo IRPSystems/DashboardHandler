@@ -34,6 +34,8 @@ namespace Dashboard.ViewModels
 
 		public object SelectedItems { get; set; }
 
+		public bool IsNeedSave { get; set; }
+
 		public string Name
 		{
 			get
@@ -74,6 +76,8 @@ namespace Dashboard.ViewModels
 
 			Nodes = new NodeCollection();
 			PageSettings = new PageSettings();
+
+			IsNeedSave = false;
 
 			ItemAddedCommand = new RelayCommand<object>(ItemAdded);
 			ItemDeletedCommand = new RelayCommand<object>(ItemDeleted);
@@ -118,6 +122,8 @@ namespace Dashboard.ViewModels
 			settings.TypeNameHandling = TypeNameHandling.All;
 			var sz = JsonConvert.SerializeObject(DesignDiagram, settings);
 			File.WriteAllText(DesignDiagram.FilePath, sz);
+
+			IsNeedSave = false;
 		}
 
 		public void Open(string path)
@@ -136,7 +142,11 @@ namespace Dashboard.ViewModels
 				
 				InitNodeBySymbol(null, toolName, tool);
 			}
+
+			IsNeedSave = false;
 		}
+
+		#region Add node
 
 		private void ItemAdded(object item)
 		{
@@ -156,27 +166,19 @@ namespace Dashboard.ViewModels
 			}
 		}
 
-		private void ItemDeleted(object item)
-		{
-			if (!(item is ItemDeletedEventArgs itemDeleted))
-				return;
-
-			if (!(itemDeleted.Item is NodeViewModel node))
-				return;
-
-			DesignDiagram.ToolList.Remove(node.Content as DesignToolBase);
-		}
-
 		private void InitNodeBySymbol(
 			NodeViewModel node,
 			string toolName,
 			DesignToolBase tool = null)
 		{
-			if(node == null)
+			if (node == null)
 			{
 				node = new NodeViewModel();
 				node.Content = tool;
 				Nodes.Add(node);
+
+				(node.Content as DesignToolBase).PropertyChanged +=  
+					DesignTool_PropertyChanged;
 			}
 
 			node.ID = toolName;
@@ -198,7 +200,7 @@ namespace Dashboard.ViewModels
 		}
 
 		private void SetNewNodeTemplate(
-			NodeViewModel node, 
+			NodeViewModel node,
 			string toolName)
 		{
 			switch (toolName)
@@ -285,7 +287,12 @@ namespace Dashboard.ViewModels
 					node.UnitHeight = 100;
 					break;
 			}
+
+			(node.Content as DesignToolBase).PropertyChanged += 
+				DesignTool_PropertyChanged;
 		}
+
+		
 
 		private void MatchNewNodeToTool(
 			NodeViewModel node,
@@ -310,6 +317,21 @@ namespace Dashboard.ViewModels
 				toolNew.Height = node.UnitHeight;
 			}
 		}
+
+		#endregion Add node
+
+		private void ItemDeleted(object item)
+		{
+			if (!(item is ItemDeletedEventArgs itemDeleted))
+				return;
+
+			if (!(itemDeleted.Item is NodeViewModel node))
+				return;
+
+			DesignDiagram.ToolList.Remove(node.Content as DesignToolBase);
+
+			IsNeedSave = true;
+		}		
 
 		private void Node_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
@@ -338,6 +360,13 @@ namespace Dashboard.ViewModels
 			{
 				tool.Height = node.UnitHeight;
 			}
+		}
+
+
+
+		private void DesignTool_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			IsNeedSave = true;
 		}
 
 		private void Diagram_Drop(DragEventArgs e)
@@ -385,9 +414,9 @@ namespace Dashboard.ViewModels
 		private void ItemSelecting(object e)
 		{
 			//SelectorViewModel svm = (SelectedItems as SelectorViewModel);
-			//(svm.Commands as QuickCommandCollection).RemoveAt(1);
-			//svm.SelectorConstraints = 
+			//svm.SelectorConstraints =
 			//	svm.SelectorConstraints & ~SelectorConstraints.QuickCommands;
+			//(svm.Commands as QuickCommandCollection).RemoveAt(1);
 		}
 
 		private void SetPropertyGridSelectedNode(DesignToolBase toolBase)

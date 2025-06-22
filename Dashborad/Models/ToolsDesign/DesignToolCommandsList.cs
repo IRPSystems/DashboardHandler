@@ -20,6 +20,12 @@ namespace Dashboard.Models.ToolsDesign
 		public DesignToolCommandsList()
 		{
 			ParametersList = new ObservableCollection<DeviceParameterData>();
+			ParametersList.CollectionChanged += ParametersList_CollectionChanged;
+		}
+
+		private void ParametersList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			OnPropertyChanged(nameof(ParametersList));
 		}
 
 		public override void SetParameter(DeviceParameterData parameter)

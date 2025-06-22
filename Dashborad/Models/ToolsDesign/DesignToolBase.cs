@@ -119,5 +119,6 @@ namespace Dashboard.Models.ToolsDesign
 
 		protected abstract void GetRealParameter(DevicesContainer devicesContainer);
 
+
 	}
 }
