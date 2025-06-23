@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Controls.Interfaces;
 using Dashboard.Views;
 using DeviceHandler.Models;
 using Microsoft.Win32;
@@ -56,6 +57,7 @@ namespace Dashboard.ViewModels
 				devicesContainer, 
 				_propertyGrid, 
 				_stencil);
+			DesignDocing.DocumentClosedEvent += DesignDocing_DocumentClosedEvent;
 
 			_designDashboardList = new List<DesignDashboardViewModel>();
 		}
@@ -70,19 +72,9 @@ namespace Dashboard.ViewModels
 			{
 				if(db.IsNeedSave)
 				{
-					MessageBoxResult result = MessageBox.Show(
-						$"You've made changes to the dashboard.\r\n" +
-						"Do you wisht to save it?",
-						"Warning",
-						MessageBoxButton.YesNoCancel);
-					if (result == MessageBoxResult.Yes)
-					{
-						db.Save();
-					}
-					else if (result == MessageBoxResult.Cancel)
-					{
+					bool isNotCancel = db.Dispose();
+					if(isNotCancel == false)
 						return false;
-					}
 				}
 			}
 
@@ -150,6 +142,12 @@ namespace Dashboard.ViewModels
 
 			DesignDocing.AddDashboard(vm, new DesignDashboardView());
 			_designDashboardList.Add(vm);
+		}
+
+		private void DesignDocing_DocumentClosedEvent(IDocumentVM document)
+		{
+			if(document is DesignDashboardViewModel vm) 
+				_designDashboardList.Remove(vm);
 		}
 
 		#endregion Methods

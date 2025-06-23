@@ -101,6 +101,28 @@ namespace Dashboard.ViewModels
 
 		#region Methods
 
+		public bool Dispose()
+		{
+			if (IsNeedSave)
+			{
+				MessageBoxResult result = MessageBox.Show(
+					$"You've made changes to the dashboard.\r\n" +
+					"Do you wisht to save it?",
+					"Warning",
+					MessageBoxButton.YesNoCancel);
+				if (result == MessageBoxResult.Yes)
+				{
+					Save();
+				}
+				else if (result == MessageBoxResult.Cancel)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		private void SetSnapAndGrid()
 		{
 			SnapSettings = new SnapSettings()

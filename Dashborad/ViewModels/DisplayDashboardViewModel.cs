@@ -37,6 +37,11 @@ namespace Dashboard.ViewModels
 			LoadFile(path);
 		}
 
+		public bool Dispose()
+		{
+			return true;
+		}
+
         public void LoadFile(string path)
         {
 			try

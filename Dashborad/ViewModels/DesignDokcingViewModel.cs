@@ -3,10 +3,7 @@ using Dashboard.Views;
 using DeviceHandler.Models;
 using DeviceHandler.ViewModel;
 using DeviceHandler.Views;
-using Newtonsoft.Json.Linq;
 using Syncfusion.Windows.Tools.Controls;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace Dashboard.ViewModels
