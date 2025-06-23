@@ -83,7 +83,6 @@ namespace Dashboard.ViewModels
 			ItemDeletedCommand = new RelayCommand<object>(ItemDeleted);
 			Diagram_DropCommand = new RelayCommand<DragEventArgs>(Diagram_Drop);
 			ItemSelectedCommand = new RelayCommand<object>(ItemSelected);
-			ItemSelectingCommand = new RelayCommand<object>(ItemSelecting);
 			SaveDashboradCommand = new RelayCommand(Save);
 			GenerateDashboradCommand = new RelayCommand(GenerateDashborad);
 
@@ -94,6 +93,7 @@ namespace Dashboard.ViewModels
 			ChangeDarkLight();
 
 			_generateService = new GenerateService();
+
 			SelectedItems = new SelectorViewModel();
 		}
 
@@ -433,14 +433,6 @@ namespace Dashboard.ViewModels
 			SetPropertyGridSelectedNode(toolBase);
 		}
 
-		private void ItemSelecting(object e)
-		{
-			//SelectorViewModel svm = (SelectedItems as SelectorViewModel);
-			//svm.SelectorConstraints =
-			//	svm.SelectorConstraints & ~SelectorConstraints.QuickCommands;
-			//(svm.Commands as QuickCommandCollection).RemoveAt(1);
-		}
-
 		private void SetPropertyGridSelectedNode(DesignToolBase toolBase)
 		{
 			_propertyGrid.SetHideProperties(toolBase);
@@ -461,7 +453,6 @@ namespace Dashboard.ViewModels
 		public RelayCommand<object> ItemDeletedCommand { get; private set; }
 		public RelayCommand<DragEventArgs> Diagram_DropCommand { get; private set; }
 		public RelayCommand<object> ItemSelectedCommand { get; private set; }
-		public RelayCommand<object> ItemSelectingCommand { get; private set; }
 
 
 		public RelayCommand SaveDashboradCommand { get; private set; }

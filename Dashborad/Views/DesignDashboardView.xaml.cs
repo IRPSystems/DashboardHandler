@@ -1,4 +1,5 @@
 ﻿using Controls.Interfaces;
+using Syncfusion.UI.Xaml.Diagram;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +26,13 @@ namespace Dashboard.Views
 		{
 			InitializeComponent();
 		}
-    }
+
+		private void UserControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			SelectorViewModel svm = (diagram.SelectedItems as SelectorViewModel);
+			(svm.Commands as QuickCommandCollection).RemoveAt(1);
+			svm.SelectorConstraints =
+				svm.SelectorConstraints & ~SelectorConstraints.Rotator;
+		}
+	}
 }
