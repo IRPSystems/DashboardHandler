@@ -10,7 +10,9 @@ using DeviceHandler.Models;
 using DeviceHandler.Models.DeviceFullDataModels;
 using Entities.Enums;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace DashboardHandler.ViewModels
@@ -47,6 +49,7 @@ namespace DashboardHandler.ViewModels
 			InitDeviceContainer();
 
 			ChangeDarkLightCommand = new RelayCommand(ChangeDarkLight);
+			ClosingCommand = new RelayCommand<CancelEventArgs>(Closing);
 
 			Display = new DisplayViewModel(DevicesContainer);
 			Design = new DesignViewModel(DevicesContainer, _appResources);
@@ -109,11 +112,19 @@ namespace DashboardHandler.ViewModels
 				Design.ChangeDarkLight();
 		}
 
+		private void Closing(CancelEventArgs e)
+		{
+			bool isExit = Design.Dispose();
+			if(isExit == false) 
+				e.Cancel = true;
+		}
+
 		#endregion Methods
 
-		#region Commands
+			#region Commands
 
 		public RelayCommand ChangeDarkLightCommand { get; private set; }
+		public RelayCommand<CancelEventArgs> ClosingCommand { get; private set; }
 
 
 		#endregion Commands

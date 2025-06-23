@@ -64,6 +64,31 @@ namespace Dashboard.ViewModels
 
 		#region Methods
 
+		public bool Dispose()
+		{
+			foreach (DesignDashboardViewModel db in _designDashboardList)
+			{
+				if(db.IsNeedSave)
+				{
+					MessageBoxResult result = MessageBox.Show(
+						$"You've made changes to the dashboard.\r\n" +
+						"Do you wisht to save it?",
+						"Warning",
+						MessageBoxButton.YesNoCancel);
+					if (result == MessageBoxResult.Yes)
+					{
+						db.Save();
+					}
+					else if (result == MessageBoxResult.Cancel)
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
 		public void ChangeDarkLight()
 		{
 			if (DesignDocing != null)
